@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.*;
+import com.bumptech.glide.Glide;
 import com.example.bachhoaonline.R;
 import com.example.bachhoaonline.model.loai;
 
@@ -58,7 +59,7 @@ public class loaispadapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
             viewHolder.tenloai.setText(array.get(position).getTenloai());
-
+            Glide.with(context).load(array.get(position).getHinhanh()).into(viewHolder.hianhanhloai);
 
         }
 
