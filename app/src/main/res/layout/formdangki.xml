@@ -19,8 +19,8 @@
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Email" />
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -39,8 +39,8 @@
         android:id="@+id/textViewForgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Forgot password?"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_marginTop="16dp"/>
+        android:text="Forgot password?" />
 
 </LinearLayout>

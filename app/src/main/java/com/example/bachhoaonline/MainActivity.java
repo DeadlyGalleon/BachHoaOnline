@@ -17,8 +17,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bachhoaonline.adapter.loaispadapter;
+import com.example.bachhoaonline.model.loai;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewtrangchu;
     BottomNavigationView bottomNavigationViewTrangChu;
     NavigationView NagiNavigationViewTrangChu;
+loaispadapter loaispadapter;
+List<loai> mangloai;
 
 //thiendeptrai
 
@@ -54,6 +61,10 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
         listViewtrangchu   = findViewById(R.id.listviewtrangchu);
         bottomNavigationViewTrangChu = findViewById(R.id.navbottomtrangchu);
         NagiNavigationViewTrangChu=findViewById(R.id.navtrangchu);
+        mangloai=new ArrayList<loai>();
+
+        loaispadapter=new loaispadapter(getApplicationContext(),mangloai);
+listViewtrangchu.setAdapter(loaispadapter);
     }
 
     private boolean isConnected(Context context) {
