@@ -5,6 +5,21 @@ public class loai {
     private String tenloai;
     private String hinhanh;
 
+    public loai(int idloai, String tenloai, String hinhanh) {
+        this.idloai = idloai;
+        this.tenloai = tenloai;
+        this.hinhanh = hinhanh;
+    }
+
+    @Override
+    public String toString() {
+        return "loai{" +
+                "idloai=" + idloai +
+                ", tenloai='" + tenloai + '\'' +
+                ", hinhanh='" + hinhanh + '\'' +
+                '}';
+    }
+
     public int getIdloai() {
         return idloai;
     }

@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
+
+
+
+
+
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,11 +26,22 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbartrangchu"
-                app:title="Trang Chủ"
                 android:background="#588175"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:titleTextColor="@android:color/white"/>
+                app:titleTextColor="@android:color/white"
+                app:title="Trang Chủ"
+                >
+
+                <!-- Thêm một nút hành động để chuyển hướng tới màn hình đăng nhập -->
+                <ImageButton
+                    android:id="@+id/action_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_3p_24"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
+
+            </androidx.appcompat.widget.Toolbar>
 
             <ViewFlipper
                 android:id="@+id/quangcaotrangchu"

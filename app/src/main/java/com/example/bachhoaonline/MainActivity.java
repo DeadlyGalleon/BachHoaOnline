@@ -1,10 +1,13 @@
 package com.example.bachhoaonline;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -42,18 +45,26 @@ List<loai> mangloai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        Toolbar toolbar = findViewById(R.id.toolbartrangchu);
+        setSupportActionBar(toolbar);
+
+        // Lắng nghe sự kiện khi người dùng nhấn vào nút đăng nhập trên Toolbar
+        ImageButton loginButton = toolbar.findViewById(R.id.action_login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển hướng sang màn hình đăng nhập (formlogin.xml)
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
         });
-AnhXa();
-if(isConnected(this)){
-    Toast.makeText(this, "Manh", Toast.LENGTH_SHORT).show();
-}else Toast.makeText(this, "Khong Manh", Toast.LENGTH_SHORT).show();
+
+        // Tiếp tục với các xử lý khác của MainActivity
     }
+
+
     private void AnhXa(){
 toolbartrangchu =findViewById(R.id.toolbartrangchu);
 ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);

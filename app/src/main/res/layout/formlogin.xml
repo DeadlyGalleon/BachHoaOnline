@@ -13,12 +13,7 @@
         android:padding="16dp"
         >
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src=""
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="32dp"/>
+
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -46,7 +41,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="Quên Mật Kẩu??" />
+            android:text="Quên Mật Khẩu??" />
+        <Button
+            android:id="@+id/buttonGoToSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đăng Ký"
+            android:layout_below="@id/textViewForgotPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 
