@@ -22,5 +22,16 @@ public class LoginActivity extends AppCompatActivity {
                 finish(); // Đóng màn hình hiện tại
             }
         });
+
+        Button buttonHome = findViewById(R.id.buttonHome);
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Xử lý khi nút được nhấn, ví dụ: chuyển hướng đến trang chủ
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish(); // Tùy chọn: kết thúc hoạt động hiện tại nếu bạn muốn
+            }
+        });
     }
 }

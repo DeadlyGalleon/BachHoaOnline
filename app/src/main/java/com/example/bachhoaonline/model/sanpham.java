@@ -8,15 +8,6 @@ public class sanpham {
     private String hinhanh;
 
 
-    @Override
-    public String toString() {
-        return "sanpham{" +
-                "idsanpham='" + idsanpham + '\'' +
-                ", tensanpham='" + tensanpham + '\'' +
-                ", giaban=" + giaban +
-                ", hinhanh='" + hinhanh + '\'' +
-                '}';
-    }
 
     public sanpham(String idsanpham, String tensanpham, Integer giaban, String hinhanh) {
         this.idsanpham = idsanpham;

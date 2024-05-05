@@ -16,17 +16,6 @@ public class giohang {
         this.giabanra = giabanra;
     }
 
-    @Override
-    public String toString() {
-        return "giohang{" +
-                "idtaikhoan=" + idtaikhoan +
-                ", idsanpham=" + idsanpham +
-                ", tensanpham='" + tensanpham + '\'' +
-                ", hinhanhsanphamgiohang='" + hinhanhsanphamgiohang + '\'' +
-                ", giabanra=" + giabanra +
-                '}';
-    }
-
     public Integer getIdtaikhoan() {
         return idtaikhoan;
     }

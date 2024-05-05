@@ -11,14 +11,7 @@ public class loai {
         this.hinhanh = hinhanh;
     }
 
-    @Override
-    public String toString() {
-        return "loai{" +
-                "idloai=" + idloai +
-                ", tenloai='" + tenloai + '\'' +
-                ", hinhanh='" + hinhanh + '\'' +
-                '}';
-    }
+
 
     public int getIdloai() {
         return idloai;

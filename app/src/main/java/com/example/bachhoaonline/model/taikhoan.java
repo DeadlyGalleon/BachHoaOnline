@@ -2,14 +2,6 @@ package com.example.bachhoaonline.model;
 
 public class taikhoan
 {
-    @Override
-    public String toString() {
-        return "taikhoan{" +
-                "idtaikhoan=" + idtaikhoan +
-                ", tentaikhoan='" + tentaikhoan + '\'' +
-                ", matkhau='" + matkhau + '\'' +
-                '}';
-    }
 
     public taikhoan(Integer idtaikhoan, String tentaikhoan, String matkhau) {
         this.idtaikhoan = idtaikhoan;

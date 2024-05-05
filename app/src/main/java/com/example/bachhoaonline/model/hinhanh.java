@@ -12,13 +12,6 @@ public class hinhanh {
         this.hinhanh = hinhanh;
     }
 
-    @Override
-    public String toString() {
-        return "hinhanh{" +
-                "idsanpham='" + idsanpham + '\'' +
-                ", hinhanh=" + hinhanh +
-                '}';
-    }
 
     public String getIdsanpham() {
         return idsanpham;

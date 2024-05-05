@@ -13,16 +13,7 @@ public class danhgia {
 
 
 
-    @Override
-    public String toString() {
-        return "danhgia{" +
-                "idtaikhoan=" + idtaikhoan +
-                ", idsanpham=" + idsanpham +
-                ", soSao=" + soSao +
-                ", binhLuan='" + binhLuan + '\'' +
-                ", ngayGio='" + ngayGio + '\'' +
-                '}';
-    }
+
 
     public void setidtaikhoan(int idtaikhoan) {
         this.idtaikhoan = idtaikhoan;
