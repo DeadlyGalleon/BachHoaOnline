@@ -11,7 +11,7 @@
         android:hint="Tên Tài Khoản"
         android:layout_margin="16dp"
         android:inputType="text" />
-//iiiiiiiiiiiiiii
+
 
     <EditText
         android:id="@+id/sodienthoai"
