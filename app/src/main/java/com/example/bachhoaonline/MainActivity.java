@@ -3,7 +3,6 @@ package com.example.bachhoaonline;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -12,18 +11,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bachhoaonline.adapter.loaispadapter;
 import com.example.bachhoaonline.model.loai;
+import com.example.bachhoaonline.model.taikhoan;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.*;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +39,23 @@ loaispadapter loaispadapter;
 List<loai> mangloai;
 
 //thiendeptrai
-
+DatabaseReference rootdata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+// Write a message to the database
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbartrangchu);
         setSupportActionBar(toolbar);
+        if(isConnected(this)){
+            Toast.makeText(this, "Đã Kết nối Internet", Toast.LENGTH_SHORT).show();
+        }
+        else Toast.makeText(this, "Kết Nối Internet thất bại", Toast.LENGTH_SHORT).show();
+
 
         // Lắng nghe sự kiện khi người dùng nhấn vào nút đăng nhập trên Toolbar
         ImageButton loginButton = toolbar.findViewById(R.id.action_login);
@@ -56,7 +63,7 @@ List<loai> mangloai;
             @Override
             public void onClick(View v) {
                 // Chuyển hướng sang màn hình đăng nhập (formlogin.xml)
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, DangNhapActivity.class);
                 startActivity(intent);
             }
         });

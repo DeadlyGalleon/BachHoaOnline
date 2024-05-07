@@ -15,7 +15,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.formdangki);
 
-        Button goToLoginButton = findViewById(R.id.buttonGoToLogin);
+        Button goToLoginButton = findViewById(R.id.quayvelogin);
         goToLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
