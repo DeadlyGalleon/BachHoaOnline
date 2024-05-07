@@ -67,6 +67,15 @@ DatabaseReference rootdata;
                 startActivity(intent);
             }
         });
+        ImageButton themsanphambtn = toolbar.findViewById(R.id.addproduct);
+        themsanphambtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển hướng sang màn hình đăng nhập (formlogin.xml)
+                Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Tiếp tục với các xử lý khác của MainActivity
     }
