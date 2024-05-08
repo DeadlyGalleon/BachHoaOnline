@@ -3,12 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        >
+        android:layout_marginTop="100dp">
 
         <!-- LinearLayout để chứa "Loại:" và Spinner -->
         <LinearLayout
@@ -16,9 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="16dp"
-
-            >
+            android:layout_margin="16dp">
 
             <!-- TextView nhãn "Loại:" -->
             <TextView
@@ -36,6 +32,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_weight="1" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearLayoutCategoryChild"
             android:layout_width="match_parent"
@@ -60,6 +57,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_weight="1" />
         </LinearLayout>
+
         <!-- EditText để nhập tên sản phẩm -->
         <EditText
             android:id="@+id/texttensanpham"
@@ -98,9 +96,16 @@
             android:text="Thêm"
             android:layout_marginTop="16dp"/>
 
+        <!-- Button để thêm ảnh sản phẩm -->
+        <Button
+            android:id="@+id/buttonAddImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imageViewProduct"
+            android:layout_alignBottom="@id/imageViewProduct"
+            android:text="Thêm Ảnh"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"/>
+
     </RelativeLayout>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

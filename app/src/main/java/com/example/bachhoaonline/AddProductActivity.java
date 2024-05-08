@@ -1,14 +1,19 @@
 package com.example.bachhoaonline;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bachhoaonline.R;
@@ -27,13 +32,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddProductActivity extends AppCompatActivity {
-
+int REQUEST_CODE_IMAGE=1;
     private List<Loai> loaiList;
     private Spinner spinnerLoai;
+    ImageView hinhanh;
     private Spinner spinnerLoaiCon;
     private EditText textTenSanPham;
     private EditText textGiaBan;
-    private Button buttonAddProduct;
+    private Button buttonAddProduct,btnthemanh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +88,9 @@ public class AddProductActivity extends AppCompatActivity {
         buttonAddProduct = findViewById(R.id.buttonAddProduct);
         textTenSanPham = findViewById(R.id.texttensanpham);
         textGiaBan = findViewById(R.id.textgiaban);
+        btnthemanh=findViewById(R.id.buttonAddImage);
+        hinhanh=findViewById(R.id.imageViewProduct);
+
     }
 
     public void Control() {
@@ -92,7 +101,22 @@ buttonAddProduct.setOnClickListener(new View.OnClickListener() {
     }
 });
 
+        hinhanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo Intent để mở hộp thoại chọn ảnh từ bộ sưu tập hoặc máy ảnh
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*"); // Chỉ chọn các file ảnh
+                startActivityForResult(intent, REQUEST_CODE_IMAGE); // Sử dụng startActivityForResult để nhận kết quả trả về
+            }
+        });
+
+
+
+
     }
+
+
     private void themSanPham() {
         // Lấy dữ liệu từ các trường nhập liệu
         String tenSanPham = textTenSanPham.getText().toString();

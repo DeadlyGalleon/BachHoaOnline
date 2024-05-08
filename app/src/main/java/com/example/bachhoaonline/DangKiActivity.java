@@ -196,7 +196,7 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
 
                                 Intent intent = new Intent(DangKiActivity.this, DangNhapActivity.class);
                                 startActivity(intent);
-                                finish();
+
 
                             } else {
                                 // Đăng ký thất bại
