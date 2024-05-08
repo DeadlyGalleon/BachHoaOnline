@@ -91,5 +91,8 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
+    implementation ("com.squareup.picasso:picasso:2.71828")
+
+
 
 }

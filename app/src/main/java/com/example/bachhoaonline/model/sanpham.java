@@ -5,7 +5,7 @@ public class sanpham {
     private String tensanpham;
     private  Double giaban;
     private String loai;
-
+    private String hinhanh;
     public sanpham(String idsanpham, String tensanpham, Double giaban, String loai, String hinhanh) {
         this.idsanpham = idsanpham;
         this.tensanpham = tensanpham;
@@ -21,9 +21,6 @@ public class sanpham {
     public void setLoai(String loai) {
         this.loai = loai;
     }
-
-    private String hinhanh;
-
 
 
     public sanpham(String idsanpham, String tensanpham, Double giaban, String hinhanh) {
