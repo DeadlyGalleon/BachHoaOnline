@@ -48,12 +48,10 @@ public class httkact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listview_taikhoan); // Sửa thành tên đúng của tệp XML
-
         AnhXa();
         databaseRef = FirebaseDatabase.getInstance().getReference("TaiKhoan"); // Gán giá trị cho databaseRef
         loadTaiKhoanData();
     }
-
     private void AnhXa() {
         toolbartrangchu = findViewById(R.id.toolbartrangchu);
         ViewFlipperTrangchu = findViewById(R.id.quangcaotrangchu);
@@ -63,8 +61,6 @@ public class httkact extends AppCompatActivity {
         NagiNavigationViewTrangChu = findViewById(R.id.navtrangchu);
         taikhoanListView = findViewById(R.id.listViewTaiKhoan); // Đã sửa lại tên đúng
     }
-
-
     private void loadTaiKhoanData() {
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -72,24 +68,23 @@ public class httkact extends AppCompatActivity {
                 List<taikhoan> taiKhoanList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idString = snapshot.getKey(); // Lấy giá trị id dưới dạng chuỗi từ key của snapshot
-                    String tenTaiKhoan = snapshot.child("ten_tai_khoan").getValue(String.class);
-                    String soDienThoai = snapshot.child("so_dien_thoai").getValue(String.class);
-                    String matKhau = snapshot.child("mat_khau").getValue(String.class);
-
+                    String tenTaiKhoan = snapshot.child("tentaikhoan").getValue(String.class);
+                    String soDienThoai = snapshot.child("sodienthoai").getValue(String.class);
+                    String matKhau = snapshot.child("matkhau").getValue(String.class);
                     int id = Integer.parseInt(idString); // Chuyển đổi id từ chuỗi sang số nguyên
-
                     taikhoan taiKhoan = new taikhoan(id, tenTaiKhoan, soDienThoai, matKhau);
                     taiKhoanList.add(taiKhoan);
                 }
-
-                taikhoanadapter taikhoanAdapter = new taikhoanadapter(httkact.this, taiKhoanList);
-                taikhoanListView.setAdapter(taikhoanAdapter);
+                // Truyền giá trị boolean vào Adapter khi tạo Adapter
+                taikhoanadapter taiKhoanAdapter = new taikhoanadapter(httkact.this, taiKhoanList, true); // Đặt giá trị là true nếu button có trong listview.xml
+                taikhoanListView.setAdapter(taiKhoanAdapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xử lý khi truy vấn bị hủy bỏ
             }
         });
     }
+
+
 }
