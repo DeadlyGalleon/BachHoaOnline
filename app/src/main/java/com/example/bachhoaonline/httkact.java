@@ -49,17 +49,11 @@ public class httkact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listview_taikhoan); // Sửa thành tên đúng của tệp XML
         AnhXa();
-        databaseRef = FirebaseDatabase.getInstance().getReference("TaiKhoan"); // Gán giá trị cho databaseRef
+        databaseRef = FirebaseDatabase.getInstance().getReference("taikhoan"); // Gán giá trị cho databaseRef
         loadTaiKhoanData();
     }
     private void AnhXa() {
-        toolbartrangchu = findViewById(R.id.toolbartrangchu);
-        ViewFlipperTrangchu = findViewById(R.id.quangcaotrangchu);
-        RecyclerViewTrangChu = findViewById(R.id.sanphammoitrangchu);
-        listViewtrangchu = findViewById(R.id.listviewtrangchu);
-        bottomNavigationViewTrangChu = findViewById(R.id.navbottomtrangchu);
-        NagiNavigationViewTrangChu = findViewById(R.id.navtrangchu);
-        taikhoanListView = findViewById(R.id.listViewTaiKhoan); // Đã sửa lại tên đúng
+        taikhoanListView = findViewById(R.id.listViewTaiKhoan);
     }
     private void loadTaiKhoanData() {
         databaseRef.addValueEventListener(new ValueEventListener() {
@@ -75,7 +69,6 @@ public class httkact extends AppCompatActivity {
                     taikhoan taiKhoan = new taikhoan(id, tenTaiKhoan, soDienThoai, matKhau);
                     taiKhoanList.add(taiKhoan);
                 }
-                // Truyền giá trị boolean vào Adapter khi tạo Adapter
                 taikhoanadapter taiKhoanAdapter = new taikhoanadapter(httkact.this, taiKhoanList, true); // Đặt giá trị là true nếu button có trong listview.xml
                 taikhoanListView.setAdapter(taiKhoanAdapter);
             }
