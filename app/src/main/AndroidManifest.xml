@@ -36,10 +36,10 @@
         <activity android:name=".DangNhapActivity" /> <!-- Thêm khai báo activity cho SignUpActivity -->
         <activity android:name=".DangKiActivity" />
         <activity android:name=".httkact" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
     </application>

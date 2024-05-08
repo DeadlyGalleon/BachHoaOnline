@@ -5,23 +5,10 @@
       <entry key="DangKiActivity">
         <State />
       </entry>
-      <entry key="app">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="10274333AZ000228" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-08T17:13:14.627108200Z" />
-        </State>
+      <entry key="MainActivity">
+        <State />
       </entry>
-      <entry key="httkact">
+      <entry key="app">
         <State />
       </entry>
     </value>

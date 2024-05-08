@@ -3,6 +3,9 @@ package com.example.bachhoaonline;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -27,29 +30,43 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AddProductActivity extends AppCompatActivity {
-int REQUEST_CODE_IMAGE=1;
+    int REQUEST_CODE_IMAGE = 1;
     private List<Loai> loaiList;
     private Spinner spinnerLoai;
     ImageView hinhanh;
     private Spinner spinnerLoaiCon;
     private EditText textTenSanPham;
     private EditText textGiaBan;
-    private Button buttonAddProduct,btnthemanh;
+    private Button buttonAddProduct, btnthemanh;
+    private Bitmap selectedImageBitmap;
+
+
+    FirebaseStorage storage = FirebaseStorage.getInstance("gs://bachhoaonline-de1d0.appspot.com");
+    StorageReference storageRef = storage.getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
+        // Get a non-default Storage bucket
+
+
         AnhXa();
         loadLoaiData();
-        Control(); // Di chuyển gọi phương thức Control() xuống đây
+        Control();
     }
-
 
     private void loadLoaiData() {
         FirebaseDatabase.getInstance().getReference().child("loai").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,7 +77,6 @@ int REQUEST_CODE_IMAGE=1;
                     String key = snapshot.getKey();
                     String tenLoai = snapshot.child("tenloai").getValue(String.class);
 
-                    // Tạo một đối tượng Loai từ dữ liệu
                     Loai loai = new Loai();
                     loai.setIdloai(key);
                     loai.setTenloai(tenLoai);
@@ -68,18 +84,16 @@ int REQUEST_CODE_IMAGE=1;
                     loaiList.add(loai);
                 }
 
-                // Sử dụng Custom Adapter mới
                 LoaiSpinnerAdapter loaiAdapter = new LoaiSpinnerAdapter(AddProductActivity.this, loaiList);
                 spinnerLoai.setAdapter(loaiAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Xử lý khi có lỗi
+                // Handle errors
             }
         });
     }
-
 
     @SuppressLint("WrongViewCast")
     public void AnhXa() {
@@ -88,32 +102,42 @@ int REQUEST_CODE_IMAGE=1;
         buttonAddProduct = findViewById(R.id.buttonAddProduct);
         textTenSanPham = findViewById(R.id.texttensanpham);
         textGiaBan = findViewById(R.id.textgiaban);
-        btnthemanh=findViewById(R.id.buttonAddImage);
-        hinhanh=findViewById(R.id.imageViewProduct);
-
+        hinhanh = findViewById(R.id.imageViewProduct);
     }
 
     public void Control() {
-buttonAddProduct.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        themSanPham();
-    }
-});
+        buttonAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                themSanPham();
+            }
+        });
 
         hinhanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo Intent để mở hộp thoại chọn ảnh từ bộ sưu tập hoặc máy ảnh
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*"); // Chỉ chọn các file ảnh
-                startActivityForResult(intent, REQUEST_CODE_IMAGE); // Sử dụng startActivityForResult để nhận kết quả trả về
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_IMAGE);
             }
         });
+    }
 
-
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_IMAGE && resultCode == RESULT_OK && data != null) {
+            try {
+                // Get the input stream of the selected image
+                InputStream inputStream = getContentResolver().openInputStream(data.getData());
+                // Decode the input stream into a Bitmap
+                selectedImageBitmap = BitmapFactory.decodeStream(inputStream);
+                // Set the Bitmap to the ImageView
+                hinhanh.setImageBitmap(selectedImageBitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -121,12 +145,36 @@ buttonAddProduct.setOnClickListener(new View.OnClickListener() {
         // Lấy dữ liệu từ các trường nhập liệu
         String tenSanPham = textTenSanPham.getText().toString();
         String giaBanStr = textGiaBan.getText().toString();
-        Toast.makeText(this,"raucantay" , Toast.LENGTH_SHORT).show();
+
         // Kiểm tra xem các trường có dữ liệu không
         if (tenSanPham.isEmpty() || giaBanStr.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
+        Calendar calendar=Calendar.getInstance();
+        StorageReference mountainsRef = storageRef.child("hinhanh.PNG");
+// Get the data from an ImageView as bytes
+        hinhanh.setDrawingCacheEnabled(true);
+        hinhanh.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) hinhanh.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+
 
         double giaBan = Double.parseDouble(giaBanStr);
         String idLoai = ((Loai) spinnerLoai.getSelectedItem()).getIdloai(); // Lấy id loại từ Spinner
