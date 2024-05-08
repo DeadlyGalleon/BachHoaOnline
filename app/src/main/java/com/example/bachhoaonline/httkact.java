@@ -53,7 +53,13 @@ public class httkact extends AppCompatActivity {
         loadTaiKhoanData();
     }
     private void AnhXa() {
-        taikhoanListView = findViewById(R.id.listViewTaiKhoan);
+//        toolbartrangchu = findViewById(R.id.toolbartrangchu);
+//        ViewFlipperTrangchu = findViewById(R.id.quangcaotrangchu);
+//        RecyclerViewTrangChu = findViewById(R.id.sanphammoitrangchu);
+//        listViewtrangchu = findViewById(R.id.listviewtrangchu);
+//        bottomNavigationViewTrangChu = findViewById(R.id.navbottomtrangchu);
+//        NagiNavigationViewTrangChu = findViewById(R.id.navtrangchu);
+        taikhoanListView = findViewById(R.id.listViewTaiKhoan); // Đã sửa lại tên đúng
     }
     private void loadTaiKhoanData() {
         databaseRef.addValueEventListener(new ValueEventListener() {
@@ -69,6 +75,7 @@ public class httkact extends AppCompatActivity {
                     taikhoan taiKhoan = new taikhoan(id, tenTaiKhoan, soDienThoai, matKhau);
                     taiKhoanList.add(taiKhoan);
                 }
+                // Truyền giá trị boolean vào Adapter khi tạo Adapter
                 taikhoanadapter taiKhoanAdapter = new taikhoanadapter(httkact.this, taiKhoanList, true); // Đặt giá trị là true nếu button có trong listview.xml
                 taikhoanListView.setAdapter(taiKhoanAdapter);
             }

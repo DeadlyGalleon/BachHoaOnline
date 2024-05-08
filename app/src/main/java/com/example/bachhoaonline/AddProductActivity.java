@@ -79,7 +79,7 @@ public class AddProductActivity extends AppCompatActivity {
     public void AnhXa() {
         spinnerLoai = findViewById(R.id.spinnerloai);
         spinnerLoaiCon = findViewById(R.id.spinnerloaicon);
-        buttonAddProduct = findViewById(R.id.addproduct);
+        buttonAddProduct = findViewById(R.id.buttonAddProduct);
         textTenSanPham = findViewById(R.id.texttensanpham);
         textGiaBan = findViewById(R.id.textgiaban);
     }
