@@ -31,9 +31,10 @@
             <!-- Spinner để chọn loại sản phẩm -->
             <Spinner
                 android:id="@+id/spinnerloai"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_weight="1" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linearLayoutCategoryChild"
@@ -54,9 +55,10 @@
             <!-- Spinner để chọn loại sản phẩm -->
             <Spinner
                 android:id="@+id/spinnerloaicon"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_weight="1" />
         </LinearLayout>
         <!-- EditText để nhập tên sản phẩm -->
         <EditText

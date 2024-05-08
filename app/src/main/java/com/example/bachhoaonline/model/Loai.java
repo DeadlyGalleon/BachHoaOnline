@@ -1,23 +1,29 @@
 package com.example.bachhoaonline.model;
 
-public class loai {
-    private int idloai;
+public class Loai {
+    private String idloai;
     private String tenloai;
     private String hinhanh;
 
-    public loai(int idloai, String tenloai, String hinhanh) {
+    public Loai(String idloai, String tenloai, String hinhanh) {
         this.idloai = idloai;
         this.tenloai = tenloai;
         this.hinhanh = hinhanh;
     }
 
+    public Loai() {
+    }
 
+    public Loai(String idloai, String tenloai) {
+        this.idloai = idloai;
+        this.tenloai = tenloai;
+    }
 
-    public int getIdloai() {
+    public String getIdloai() {
         return idloai;
     }
 
-    public void setIdloai(int idloai) {
+    public void setIdloai(String idloai) {
         this.idloai = idloai;
     }
 
@@ -36,7 +42,4 @@ public class loai {
     public void setHinhanh(String hinhanh) {
         this.hinhanh = hinhanh;
     }
-
-
-
 }

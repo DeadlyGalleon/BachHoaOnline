@@ -15,14 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bachhoaonline.adapter.loaispadapter;
-import com.example.bachhoaonline.model.loai;
-import com.example.bachhoaonline.model.taikhoan;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.*;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewtrangchu;
     BottomNavigationView bottomNavigationViewTrangChu;
     NavigationView NagiNavigationViewTrangChu;
-loaispadapter loaispadapter;
-List<loai> mangloai;
+
 
 //thiendeptrai
 DatabaseReference rootdata;
@@ -88,10 +83,7 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
         listViewtrangchu   = findViewById(R.id.listviewtrangchu);
         bottomNavigationViewTrangChu = findViewById(R.id.navbottomtrangchu);
         NagiNavigationViewTrangChu=findViewById(R.id.navtrangchu);
-        mangloai=new ArrayList<loai>();
 
-        loaispadapter=new loaispadapter(getApplicationContext(),mangloai);
-listViewtrangchu.setAdapter(loaispadapter);
     }
 
     private boolean isConnected(Context context) {
