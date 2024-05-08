@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -23,8 +24,11 @@ import com.example.bachhoaonline.retrofit.RetrofitClient;
 
 import com.example.bachhoaonline.utils.ApiUtils;
 import com.example.bachhoaonline.utils.ApiUtils;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.annotations.Until;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -155,35 +159,59 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
             return;
         }
 
-        // Tạo một đối tượng Tài khoản
-        taikhoan taikhoan = new taikhoan();
-        taikhoan.setTentaikhoan(str_tentaikhoan);
-        taikhoan.setMatkhau(str_matkhau);
-        taikhoan.setSodienthoai(str_sodienthoai);
-
         // Tham chiếu đến nút "taikhoan" trong Firebase Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("taikhoan");
 
-        // Đẩy dữ liệu tài khoản vào Firebase Database, sử dụng tên tài khoản làm khóa chính
-        databaseReference.child(str_tentaikhoan).setValue(taikhoan)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Đăng ký thành công
-                        Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+        // Lấy ra số lớn nhất hiện có
+        databaseReference.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long maxId = 0; // Mặc định nếu không có dữ liệu
+
+                // Kiểm tra xem có dữ liệu hay không
+                if (dataSnapshot.exists()) {
+                    // Lấy key của dòng cuối cùng, chuyển đổi sang kiểu số
+                    String lastKey = dataSnapshot.getChildren().iterator().next().getKey();
+                    maxId = Long.parseLong(lastKey);
+                }
+
+                // Tăng số lớn nhất lên 1 để tạo key mới
+                long newId = maxId + 1;
+
+                // Tạo một đối tượng Tài khoản
+                taikhoan taikhoan = new taikhoan();
+                taikhoan.setTentaikhoan(str_tentaikhoan);
+                taikhoan.setMatkhau(str_matkhau);
+                taikhoan.setSodienthoai(str_sodienthoai);
+
+                // Tạo key mới từ số lớn nhất tăng thêm 1
+                String newKey = String.valueOf(newId);
+
+                // Đẩy dữ liệu tài khoản vào Firebase Database với key mới
+                databaseReference.child(newKey).setValue(taikhoan)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // Đăng ký thành công
+                                Toast.makeText(DangKiActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(DangKiActivity.this, DangNhapActivity.class);
                                 startActivity(intent);
-finish();
+                                finish();
 
+                            } else {
+                                // Đăng ký thất bại
+                                Toast.makeText(DangKiActivity.this,  task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
 
-
-
-                    } else {
-                        // Đăng ký thất bại
-                        Toast.makeText(this,  task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+            }
+        });
     }
+
 
 
 
