@@ -1,0 +1,36 @@
+<!-- item_taikhoan.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/idtk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tenTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ten: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/sdtTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="So dien thoai: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/matkhauTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mat khau: "
+        android:textStyle="bold" />
+
+</LinearLayout>
