@@ -53,12 +53,7 @@ public class httkact extends AppCompatActivity {
         loadTaiKhoanData();
     }
     private void AnhXa() {
-//        toolbartrangchu = findViewById(R.id.toolbartrangchu);
-//        ViewFlipperTrangchu = findViewById(R.id.quangcaotrangchu);
-//        RecyclerViewTrangChu = findViewById(R.id.sanphammoitrangchu);
-//        listViewtrangchu = findViewById(R.id.listviewtrangchu);
-//        bottomNavigationViewTrangChu = findViewById(R.id.navbottomtrangchu);
-//        NagiNavigationViewTrangChu = findViewById(R.id.navtrangchu);
+//
         taikhoanListView = findViewById(R.id.listViewTaiKhoan); // Đã sửa lại tên đúng
     }
     private void loadTaiKhoanData() {
