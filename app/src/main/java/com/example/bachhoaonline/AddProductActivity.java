@@ -151,7 +151,36 @@ public class AddProductActivity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
-        Calendar calendar=Calendar.getInstance();
+
+        // Lấy key lớn nhất trong nút "sanpham" của cơ sở dữ liệu
+        DatabaseReference sanPhamRef = FirebaseDatabase.getInstance().getReference("sanpham");
+        sanPhamRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long maxKey = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    long key = Long.parseLong(snapshot.getKey());
+                    if (key > maxKey) {
+                        maxKey = key;
+                    }
+                }
+
+                // Tạo key mới bằng cách tăng maxKey lên 1
+                long newKey = maxKey + 1;
+
+                // Tiến hành thêm sản phẩm vào cơ sở dữ liệu với key mới
+                themSanPhamVoiKeyMoi(newKey);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi nếu cần
+            }
+        });
+    }
+
+    private void themSanPhamVoiKeyMoi(long newKey) {
+        Calendar calendar = Calendar.getInstance();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("hinhanhsanpham/"); // Đường dẫn của thư mục
         stringBuilder.append("hinhanh");
@@ -160,7 +189,6 @@ public class AddProductActivity extends AppCompatActivity {
 
         String imagePath = stringBuilder.toString();
         StorageReference mountainsRef = storageRef.child(imagePath);
-// Get the data from an ImageView as bytes
         hinhanh.setDrawingCacheEnabled(true);
         hinhanh.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) hinhanh.getDrawable()).getBitmap();
@@ -182,15 +210,12 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
 
-
-        double giaBan = Double.parseDouble(giaBanStr);
-        String idLoai = ((Loai) spinnerLoai.getSelectedItem()).getIdloai(); // Lấy id loại từ Spinner
-
         // Thực hiện lưu thông tin sản phẩm vào cơ sở dữ liệu Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference sanPhamRef = database.getReference("sanpham").push();
-        String sanPhamKey = sanPhamRef.getKey(); // Lấy key mới tạo
-        sanpham sanPham = new sanpham(sanPhamKey, tenSanPham, giaBan, idLoai, imagePath); // Tạo đối tượng SanPham mới
+        DatabaseReference sanPhamRef = database.getReference("sanpham").child(String.valueOf(newKey));
+
+        // Tiến hành tạo đối tượng sanPham với key mới và thêm vào cơ sở dữ liệu
+        sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Double.parseDouble(textGiaBan.getText().toString()), ((Loai) spinnerLoai.getSelectedItem()).getIdloai(), imagePath);
         sanPhamRef.setValue(sanPham)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -207,5 +232,6 @@ public class AddProductActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 }

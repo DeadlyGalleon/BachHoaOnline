@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">BachHoaOnline</string>
 
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_hienthitaikhoan">hienthitaikhoan</string>
+    <string name="title_home">Trang Chủ</string>
+    <string name="title_dssp">Sản Phẩm</string>
+    <string name="ttgiohnag">Giỏ Hàng</string>
+    <string name="title_canhan">Cá Nhán</string>
 
 </resources>

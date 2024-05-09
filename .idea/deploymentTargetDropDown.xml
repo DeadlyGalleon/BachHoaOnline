@@ -5,10 +5,13 @@
       <entry key="DangKiActivity">
         <State />
       </entry>
-      <entry key="app">
+      <entry key="GioHangActivity">
         <State />
       </entry>
-      <entry key="htspact">
+      <entry key="MainActivity">
+        <State />
+      </entry>
+      <entry key="app">
         <State />
       </entry>
     </value>

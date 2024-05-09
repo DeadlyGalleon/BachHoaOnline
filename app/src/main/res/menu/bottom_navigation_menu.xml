@@ -9,15 +9,15 @@
     <item
         android:id="@+id/navdanhsachsanpham"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_dssp" />
 
     <item
         android:id="@+id/navgiohang"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:title="@string/ttgiohnag" />
     <item
         android:id="@+id/navcanhan"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_canhan" />
 
 </menu>
