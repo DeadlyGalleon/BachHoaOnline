@@ -3,10 +3,10 @@ package com.example.bachhoaonline.model;
 public class sanpham {
     private String idsanpham;
     private String tensanpham;
-    private  Double giaban;
+    private  Long giaban;
     private String loai;
     private String hinhanh;
-    public sanpham(String idsanpham, String tensanpham, Double giaban, String loai, String hinhanh) {
+    public sanpham(String idsanpham, String tensanpham, Long giaban, String loai, String hinhanh) {
         this.idsanpham = idsanpham;
         this.tensanpham = tensanpham;
         this.giaban = giaban;
@@ -23,14 +23,14 @@ public class sanpham {
     }
 
 
-    public sanpham(String idsanpham, String tensanpham, Double giaban, String hinhanh) {
+    public sanpham(String idsanpham, String tensanpham, Long giaban, String hinhanh) {
         this.idsanpham = idsanpham;
         this.tensanpham = tensanpham;
         this.giaban = giaban;
         this.hinhanh = hinhanh;
     }
 
-    public sanpham(String idsanpham, String tensanpham, Double giaban) {
+    public sanpham(String idsanpham, String tensanpham, Long giaban) {
         this.idsanpham = idsanpham;
         this.tensanpham = tensanpham;
         this.giaban = giaban;
@@ -54,11 +54,11 @@ public class sanpham {
         this.tensanpham = tensanpham;
     }
 
-    public Double getGiaban() {
+    public Long getGiaban() {
         return giaban;
     }
 
-    public void setGiaban(Double giaban) {
+    public void setGiaban(Long giaban) {
         this.giaban = giaban;
     }
 

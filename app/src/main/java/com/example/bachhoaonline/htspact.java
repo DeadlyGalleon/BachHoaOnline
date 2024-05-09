@@ -60,26 +60,24 @@ public class htspact extends AppCompatActivity  {
     }
 
     private void loadSanPhamData() {
-
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<sanpham> sanPhamList = new ArrayList<>();
 
-                List<taikhoan> taiKhoanList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String idString = snapshot.getKey(); // Lấy giá trị id dưới dạng chuỗi từ key của snapshot
-                    String tenSanPham = snapshot.child("tentaikhoan").getValue(String.class);
-                    String giaBan = snapshot.child("sodienthoai").getValue(String.class);
-                    String loaiSanPham = snapshot.child("matkhau").getValue(String.class);
-                    int id = Integer.parseInt(idString); // Chuyển đổi id từ chuỗi sang số nguyên
-                    taikhoan taiKhoan = new taikhoan(id, tenSanPham, giaBan, loaiSanPham);
-                    taiKhoanList.add(taiKhoan);
+                    String idString = snapshot.getKey();
+                    String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
+                    Long giaBan = snapshot.child("giaban").getValue(Long.class); // Chuyển đổi giá trị sang kiểu Double
+                    String loaiSanPham = snapshot.child("loai").getValue(String.class);
+                    String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
+                    sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, loaiSanPham, hinhAnh);
+                    sanPhamList.add(sanPham);
                 }
 
                 // Truyền giá trị boolean vào Adapter khi tạo Adapter
                 sanphamadapter sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
                 sanphamListView.setAdapter(sanphamAdapter);
-
             }
 
             @Override
@@ -89,4 +87,5 @@ public class htspact extends AppCompatActivity  {
         });
     }
 
-    }
+
+}

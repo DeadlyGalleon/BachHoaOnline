@@ -47,11 +47,7 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
         sanpham sanPham = sanPhamList.get(position);
 
         viewHolder.tenTextView.setText(sanPham.getTensanpham());
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(sanPham.getGiaban()).append(" VND");
-        viewHolder.giaBanTextView.setText(stringBuilder.toString());
-
+        viewHolder.giaBanTextView.setText(String.format("%d VND", sanPham.getGiaban()));
         viewHolder.loaiTextView.setText(sanPham.getLoai());
         Picasso.get().load(sanPham.getHinhanh()).into(viewHolder.imageView);
 
