@@ -94,6 +94,7 @@ public  void initcontrol(){
                             startActivity(intent);
                             return;
                         }
+
                     }
                     // Mật khẩu không đúng
                     Toast.makeText(getApplicationContext(), "Mật khẩu không đúng", Toast.LENGTH_SHORT).show();
