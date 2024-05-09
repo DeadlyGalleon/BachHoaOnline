@@ -152,7 +152,14 @@ public class AddProductActivity extends AppCompatActivity {
             return;
         }
         Calendar calendar=Calendar.getInstance();
-        StorageReference mountainsRef = storageRef.child("hinhanh.PNG");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("hinhanhsanpham/"); // Đường dẫn của thư mục
+        stringBuilder.append("hinhanh");
+        stringBuilder.append(calendar.getTimeInMillis());
+        stringBuilder.append(".png");
+
+        String imagePath = stringBuilder.toString();
+        StorageReference mountainsRef = storageRef.child(imagePath);
 // Get the data from an ImageView as bytes
         hinhanh.setDrawingCacheEnabled(true);
         hinhanh.buildDrawingCache();
@@ -183,7 +190,7 @@ public class AddProductActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference sanPhamRef = database.getReference("sanpham").push();
         String sanPhamKey = sanPhamRef.getKey(); // Lấy key mới tạo
-        sanpham sanPham = new sanpham(sanPhamKey, tenSanPham, giaBan, idLoai, ""); // Tạo đối tượng SanPham mới
+        sanpham sanPham = new sanpham(sanPhamKey, tenSanPham, giaBan, idLoai, imagePath); // Tạo đối tượng SanPham mới
         sanPhamRef.setValue(sanPham)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
