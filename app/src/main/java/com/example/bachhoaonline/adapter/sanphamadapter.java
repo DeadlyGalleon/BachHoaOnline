@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class sanphamadapter extends ArrayAdapter<sanpham> {
 
     private Context context;
+    private OnItemClickListener mListener;
     private List<sanpham> sanPhamList;
 
     public sanphamadapter(Context context, List<sanpham> sanPhamList) {
@@ -24,7 +26,6 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
         this.context = context;
         this.sanPhamList = sanPhamList;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -39,6 +40,7 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
             viewHolder.giaBanTextView = view.findViewById(R.id.giaBanTextView);
             viewHolder.loaiTextView = view.findViewById(R.id.loaiTextView);
             viewHolder.imageView = view.findViewById(R.id.imageView);
+            viewHolder.button = view.findViewById(R.id.button); // Thêm nút vào view holder
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -51,19 +53,35 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
         viewHolder.loaiTextView.setText(sanPham.getLoai());
         Picasso.get()
                 .load(sanPham.getHinhanh())
-//                .error(R.drawable.baseline_3p_24)
                 .fit()
                 .into(viewHolder.imageView);
 
+        // Thiết lập sự kiện cho nút
+        viewHolder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(position);
+                }
+            }
+        });
+
         return view;
     }
-
-
 
     private static class ViewHolder {
         TextView tenTextView;
         TextView giaBanTextView;
         TextView loaiTextView;
         ImageView imageView;
+        Button button; // Thêm nút vào view holder
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 }

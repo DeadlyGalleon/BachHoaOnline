@@ -7,14 +7,13 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_height="107dp"
         android:layout_marginEnd="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +34,6 @@
                 android:text=""
                 android:textStyle="normal" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,6 +74,14 @@
                 android:text=""
                 android:textStyle="normal" />
         </LinearLayout>
+
+        <!-- Thêm một Button bên phải -->
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chi tiết"
+            android:layout_gravity="end" />
 
     </LinearLayout>
 
