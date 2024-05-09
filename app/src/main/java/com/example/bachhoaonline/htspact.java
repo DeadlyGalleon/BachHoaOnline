@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -53,6 +54,42 @@ public class htspact extends AppCompatActivity  {
             // Xử lý trường hợp databaseRef là null
             Toast.makeText(this, "Database reference is null", Toast.LENGTH_SHORT).show();
         }
+
+        Control();
+    }
+
+    private void Control() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbottomtrangchu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navigation_home) {
+
+
+                    Intent intentDanhSachSanPham = new Intent(htspact.this, MainActivity.class);
+                    startActivity(intentDanhSachSanPham);
+                    return true;
+
+                } else if (item.getItemId() == R.id.navdanhsachsanpham) {
+                    // Chuyển đến DanhSachSanPhamActivity (hoặc Fragment)
+                    Intent intentDanhSachSanPham = new Intent(htspact.this, htspact.class);
+                    startActivity(intentDanhSachSanPham);
+                    return true;
+                } else if (item.getItemId() == R.id.navgiohang) {
+                    Intent intentGiohang = new Intent(htspact.this, GioHangActivity.class);
+                    startActivity(intentGiohang);
+                    return true;
+
+                } else if (item.getItemId() == R.id.navcanhan) {
+                    // Chuyển đến CaNhanActivity (hoặc Fragment)
+                    Intent intentCaNhan = new Intent(htspact.this, CaNhanActivity.class);
+                    startActivity(intentCaNhan);
+                    return true;
+                }
+                return false;
+            }
+
+        });
     }
 
     private void AnhXa() {

@@ -103,7 +103,7 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
 
                 } else if (item.getItemId() == R.id.navdanhsachsanpham) {
                     // Chuyển đến DanhSachSanPhamActivity (hoặc Fragment)
-                    Intent intentDanhSachSanPham = new Intent(MainActivity.this, DanhSachSanPhamActivity.class);
+                    Intent intentDanhSachSanPham = new Intent(MainActivity.this, htspact.class);
                     startActivity(intentDanhSachSanPham);
                     return true;
                 } else if (item.getItemId() == R.id.navgiohang) {
