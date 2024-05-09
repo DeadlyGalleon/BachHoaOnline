@@ -205,33 +205,39 @@ public class AddProductActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-            }
-        });
-
-        // Thực hiện lưu thông tin sản phẩm vào cơ sở dữ liệu Firebase
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference sanPhamRef = database.getReference("sanpham").child(String.valueOf(newKey));
-
-        // Tiến hành tạo đối tượng sanPham với key mới và thêm vào cơ sở dữ liệu
-        sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), ((Loai) spinnerLoai.getSelectedItem()).getIdloai(), imagePath);
-        sanPhamRef.setValue(sanPham)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                // Lấy đường dẫn URL của hình ảnh
+                mountainsRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                        // Xử lý thành công, có thể thực hiện các hành động khác ở đây nếu cần
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddProductActivity.this,  e.getMessage(), Toast.LENGTH_SHORT).show();
-                        // Xử lý khi thêm sản phẩm thất bại
+                    public void onSuccess(Uri uri) {
+                        String imageUrl = uri.toString();
+
+                        // Tiến hành lưu thông tin sản phẩm vào cơ sở dữ liệu Firebase
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference sanPhamRef = database.getReference("sanpham").child(String.valueOf(newKey));
+
+                        // Tạo đối tượng sanPham với key mới và thêm vào cơ sở dữ liệu
+                        sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), ((Loai) spinnerLoai.getSelectedItem()).getIdloai(), imageUrl);
+                        sanPhamRef.setValue(sanPham)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                        // Xử lý thành công, có thể thực hiện các hành động khác ở đây nếu cần
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AddProductActivity.this,  e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        // Xử lý khi thêm sản phẩm thất bại
+                                    }
+                                });
                     }
                 });
+            }
+        });
     }
+
 
 
 }
