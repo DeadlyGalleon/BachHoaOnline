@@ -49,10 +49,16 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
         viewHolder.tenTextView.setText(sanPham.getTensanpham());
         viewHolder.giaBanTextView.setText(String.format("%d VND", sanPham.getGiaban()));
         viewHolder.loaiTextView.setText(sanPham.getLoai());
-        Picasso.get().load(sanPham.getHinhanh()).into(viewHolder.imageView);
+        Picasso.get()
+                .load(sanPham.getHinhanh())
+//                .error(R.drawable.baseline_3p_24)
+                .fit()
+                .into(viewHolder.imageView);
 
         return view;
     }
+
+
 
     private static class ViewHolder {
         TextView tenTextView;

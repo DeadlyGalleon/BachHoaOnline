@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,6 +111,9 @@ public class htspact extends AppCompatActivity  {
                     String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
                     sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, loaiSanPham, hinhAnh);
                     sanPhamList.add(sanPham);
+                    if (hinhAnh != null) {
+                        Log.d("Firebase URL", hinhAnh);
+                    }
                 }
 
                 // Truyền giá trị boolean vào Adapter khi tạo Adapter
