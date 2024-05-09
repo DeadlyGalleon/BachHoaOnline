@@ -28,7 +28,7 @@ public class GioHangActivity extends AppCompatActivity {
                     return true;
                 } else if (item.getItemId() == R.id.navdanhsachsanpham) {
                     // Chuyển đến DanhSachSanPhamActivity (hoặc Fragment)
-                    Intent intentDanhSachSanPham = new Intent(GioHangActivity.this, DanhSachSanPhamActivity.class);
+                    Intent intentDanhSachSanPham = new Intent(GioHangActivity.this, htspact.class);
                     startActivity(intentDanhSachSanPham);
                     return true;
                 } else if (item.getItemId() == R.id.navgiohang) {
