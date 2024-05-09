@@ -33,8 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DangNhapActivity" /> <!-- Thêm khai báo activity cho SignUpActivity -->
-        <activity android:name=".DangKiActivity" />
+        <activity android:name=".DangNhapActivity"  android:exported="true" /> <!-- Thêm khai báo activity cho SignUpActivity -->
+        <activity android:name=".DangKiActivity"  android:exported="true" />
         <activity android:name=".httkact" android:exported="true">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->

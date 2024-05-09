@@ -1,7 +1,9 @@
 package com.example.bachhoaonline;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -77,6 +79,7 @@ public  void initcontrol(){
 
         // Thực hiện xác thực tài khoản và mật khẩu
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("taikhoan");
+
         databaseReference.orderByChild("tentaikhoan").equalTo(taiKhoan).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -84,8 +87,9 @@ public  void initcontrol(){
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         taikhoan taikhoan = snapshot.getValue(taikhoan.class);
                         if (taikhoan.getMatkhau().equals(matKhau)) {
+
                             // Đăng nhập thành công
-                            Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Đăng nhập Thành Công!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
                             startActivity(intent);
                             return;
