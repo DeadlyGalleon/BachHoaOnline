@@ -40,6 +40,7 @@ public class PersonalActivity extends AppCompatActivity {
 
         dangnhap=findViewById(R.id.loginButton);
 
+
     }
 
     public void Control(){
