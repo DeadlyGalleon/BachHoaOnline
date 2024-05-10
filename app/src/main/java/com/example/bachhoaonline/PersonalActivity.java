@@ -24,6 +24,7 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),DangNhapActivity.class);
+                startActivity(intent);
             }
         });
 
