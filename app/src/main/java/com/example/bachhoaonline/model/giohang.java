@@ -1,58 +1,75 @@
 package com.example.bachhoaonline.model;
 
 public class giohang {
-    private Integer idtaikhoan;
-    private Integer idsanpham;
-    private  String tensanpham;
+    private String idSanPham; // Mã sản phẩm (tùy chỉnh tên nếu cần)
+    private String tenSanPham;
+    private Integer giaBan;
+    private String hinhAnh;
+    private Integer soLuong;
+    private Integer thanhTien;
 
-    private String hinhanhsanphamgiohang;
-    private Integer giabanra;
-
-    public giohang(Integer idtaikhoan, Integer idsanpham, String tensanpham, String hinhanhsanphamgiohang, Integer giabanra) {
-        this.idtaikhoan = idtaikhoan;
-        this.idsanpham = idsanpham;
-        this.tensanpham = tensanpham;
-        this.hinhanhsanphamgiohang = hinhanhsanphamgiohang;
-        this.giabanra = giabanra;
+    public giohang(String idSanPham, String tenSanPham, Integer giaBan, String hinhAnh, Integer soLuong, Integer thanhTien) {
+        this.idSanPham = idSanPham;
+        this.tenSanPham = tenSanPham;
+        this.giaBan = giaBan;
+        this.hinhAnh = hinhAnh;
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
     }
 
-    public Integer getIdtaikhoan() {
-        return idtaikhoan;
+    public giohang() {
+        // Constructor mặc định được yêu cầu cho Firebase
     }
 
-    public void setIdtaikhoan(Integer idtaikhoan) {
-        this.idtaikhoan = idtaikhoan;
+    public giohang(String idtaikhoan, String idsanpham, String tensanpham, String hinhanh, Integer giaban, Integer soluong, Integer thanhtien) {
     }
 
-    public Integer getIdsanpham() {
-        return idsanpham;
+    public String getIdSanPham() {
+        return idSanPham;
     }
 
-    public void setIdsanpham(Integer idsanpham) {
-        this.idsanpham = idsanpham;
+    public void setIdSanPham(String idSanPham) {
+        this.idSanPham = idSanPham;
     }
 
-    public String getTensanpham() {
-        return tensanpham;
+    public String getTenSanPham() {
+        return tenSanPham;
     }
 
-    public void setTensanpham(String tensanpham) {
-        this.tensanpham = tensanpham;
+    public void setTenSanPham(String tenSanPham) {
+        this.tenSanPham = tenSanPham;
     }
 
-    public String getHinhanhsanphamgiohang() {
-        return hinhanhsanphamgiohang;
+    public Integer getGiaBan() {
+        return giaBan;
     }
 
-    public void setHinhanhsanphamgiohang(String hinhanhsanphamgiohang) {
-        this.hinhanhsanphamgiohang = hinhanhsanphamgiohang;
+    public void setGiaBan(Integer giaBan) {
+        this.giaBan = giaBan;
     }
 
-    public Integer getGiabanra() {
-        return giabanra;
+    public String getHinhAnh() {
+        return hinhAnh;
     }
 
-    public void setGiabanra(Integer giabanra) {
-        this.giabanra = giabanra;
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
+    public Integer getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(Integer soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public Integer getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(Integer thanhTien) {
+        this.thanhTien = thanhTien;
     }
 }
+   

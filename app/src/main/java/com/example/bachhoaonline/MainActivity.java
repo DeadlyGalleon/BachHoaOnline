@@ -93,6 +93,7 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
 
     public void Control(){
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbottomtrangchu);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
