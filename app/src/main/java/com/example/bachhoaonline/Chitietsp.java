@@ -23,8 +23,8 @@ public class Chitietsp extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chitietsp);
-        Button themVaoGioHangButton = findViewById(R.id.themVaoGioHangButton);
+        setContentView(R.layout.thongtinsanpham);
+        Button themVaoGioHangButton = findViewById(R.id.add_to_cart_button);
         themVaoGioHangButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,17 +76,17 @@ public class Chitietsp extends AppCompatActivity {
                         StringBuilder stringBuilder = new StringBuilder();
 
 // Hiển thị thông tin sản phẩm lên giao diện
-                        TextView tenSanPhamTextView = findViewById(R.id.tenSanPhamTextView);
+                        TextView tenSanPhamTextView = findViewById(R.id.product_name);
                         stringBuilder.setLength(0);
                         stringBuilder.append("Tên sản phẩm: ").append(tenSanPham);
                         tenSanPhamTextView.setText(stringBuilder.toString());
 
-                        TextView giaBanTextView = findViewById(R.id.giaBanTextView);
+                        TextView giaBanTextView = findViewById(R.id.product_price_value);
                         stringBuilder.setLength(0);
                         stringBuilder.append("Giá bán: ").append(giaBan).append(" VND");
                         giaBanTextView.setText(stringBuilder.toString());
 
-                        TextView loaiSanPhamTextView = findViewById(R.id.loaiSanPhamTextView);
+                        TextView loaiSanPhamTextView = findViewById(R.id.product_type);
                         stringBuilder.setLength(0);
                         stringBuilder.append("Loại sản phẩm: ").append(loaiSanPham);
                         loaiSanPhamTextView.setText(stringBuilder.toString());
