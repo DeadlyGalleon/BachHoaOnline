@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class htspact extends AppCompatActivity {
     private DatabaseReference databaseRef;
     private ListView sanphamListView;
     private List<sanpham> sanPhamList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class htspact extends AppCompatActivity {
 
     private void AnhXa() {
         sanphamListView = findViewById(R.id.listViewSanPham); // Đã sửa lại tên đúng
+
     }
 
     private void loadSanPhamData() {

@@ -1,7 +1,10 @@
 package com.example.bachhoaonline;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,21 @@ public class Chitietsp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chitietsp);
+        Button themVaoGioHangButton = findViewById(R.id.themVaoGioHangButton);
+        themVaoGioHangButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lấy ID sản phẩm từ Intent
+                String productId = getIntent().getStringExtra("idString");
+
+                // Tạo Intent để chuyển đến Activity ThemVaoGioHang
+                Intent intent = new Intent(Chitietsp.this, GioHangActivity.class);
+                // Chuyển dữ liệu idString qua Activity ThemVaoGioHang
+                intent.putExtra("idString", productId);
+                // Khởi động Activity ThemVaoGioHang
+                startActivity(intent);
+            }
+        });
 
         // Lấy ID sản phẩm từ Intent
         String productId = getIntent().getStringExtra("idString");
@@ -52,6 +70,7 @@ public class Chitietsp extends AppCompatActivity {
                         String tenSanPham = dataSnapshot.child("tensanpham").getValue(String.class);
                         Long giaBan = dataSnapshot.child("giaban").getValue(Long.class);
                         String loaiSanPham = dataSnapshot.child("loai").getValue(String.class);
+                        String hinhAnh = dataSnapshot.child("hinhanh").getValue(String.class);
 
                         // Hiển thị thông tin sản phẩm lên giao diện
                         StringBuilder stringBuilder = new StringBuilder();

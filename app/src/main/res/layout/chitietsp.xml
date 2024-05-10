@@ -28,15 +28,6 @@
         android:layout_marginTop="8dp"
         android:text="Giá Bán"
         android:textSize="16sp" />
-<!--    <TextView-->
-<!--        android:id="@+id/productIdTextView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="16sp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="Product ID will be displayed here" />-->
 
     <TextView
         android:id="@+id/loaiSanPhamTextView"
@@ -47,13 +38,14 @@
         android:text="Mô Tả"
         android:textSize="16sp" />
 
-<!--    <Button-->
-<!--        android:id="@+id/addToCartButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/moTaTextView"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="Thêm vào giỏ hàng" />-->
+    <!-- Nút "Thêm vào giỏ hàng" -->
+    <Button
+        android:id="@+id/themVaoGioHangButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loaiSanPhamTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Thêm vào giỏ hàng" />
 
 </RelativeLayout>
