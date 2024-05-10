@@ -62,7 +62,7 @@ public class htspact extends AppCompatActivity {
                     startActivity(intentGiohang);
                     return true;
                 } else if (item.getItemId() == R.id.navcanhan) {
-                    Intent intentCaNhan = new Intent(htspact.this, CaNhanActivity.class);
+                    Intent intentCaNhan = new Intent(htspact.this, PersonalActivity.class);
                     startActivity(intentCaNhan);
                     return true;
                 }

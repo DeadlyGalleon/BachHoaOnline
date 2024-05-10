@@ -37,7 +37,7 @@ public class GioHangActivity extends AppCompatActivity {
                     return true;
                 } else if (item.getItemId() == R.id.navcanhan) {
                     // Chuyển đến CaNhanActivity (hoặc Fragment)
-                    Intent intentCaNhan = new Intent(GioHangActivity.this, CaNhanActivity.class);
+                    Intent intentCaNhan = new Intent(GioHangActivity.this, PersonalActivity.class);
                     startActivity(intentCaNhan);
                     return true;
                 }

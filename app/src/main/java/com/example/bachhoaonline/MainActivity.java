@@ -48,10 +48,12 @@ Control();
 
         Toolbar toolbar = findViewById(R.id.toolbartrangchu);
         setSupportActionBar(toolbar);
-        if(isConnected(this)){
-            Toast.makeText(this, "Đã Kết nối Internet", Toast.LENGTH_SHORT).show();
+
+
+        if(!isConnected(this)){
+            Toast.makeText(this, "Kết Nối Internet thất bại", Toast.LENGTH_SHORT).show();
         }
-        else Toast.makeText(this, "Kết Nối Internet thất bại", Toast.LENGTH_SHORT).show();
+
 
 
         // Lắng nghe sự kiện khi người dùng nhấn vào nút đăng nhập trên Toolbar
@@ -113,7 +115,7 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
 
                 } else if (item.getItemId() == R.id.navcanhan) {
                     // Chuyển đến CaNhanActivity (hoặc Fragment)
-                    Intent intentCaNhan = new Intent(MainActivity.this, CaNhanActivity.class);
+                    Intent intentCaNhan = new Intent(MainActivity.this, PersonalActivity.class);
                     startActivity(intentCaNhan);
                     return true;
                 }

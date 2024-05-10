@@ -80,16 +80,28 @@ public  void initcontrol(){
         // Thực hiện xác thực tài khoản và mật khẩu
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("taikhoan");
 
+
         databaseReference.orderByChild("tentaikhoan").equalTo(taiKhoan).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         taikhoan taikhoan = snapshot.getValue(taikhoan.class);
+                        String key=snapshot.getKey();
                         if (taikhoan.getMatkhau().equals(matKhau)) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("taikhoan", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("idtaikhoan", key);
+                            editor.putString("tentaikhoan",taikhoan.getTentaikhoan());
+                            editor.putString("sodienthoai",taikhoan.getSodienthoai());
+
+                            editor.apply();
+
+                            String idtaikhoan=sharedPreferences.getString("idtaikhoan","");
+
 
                             // Đăng nhập thành công
-                            Toast.makeText(getApplicationContext(), "Đăng nhập Thành Công!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), idtaikhoan, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
                             startActivity(intent);
                             return;

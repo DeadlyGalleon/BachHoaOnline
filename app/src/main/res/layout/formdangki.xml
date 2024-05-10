@@ -29,13 +29,13 @@
         android:hint="Mật Khẩu"
         android:layout_below="@id/sodienthoai"
         android:layout_margin="16dp"
-        android:inputType="textEmailAddress" />
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/nhaplaimatkhau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="Nhập Lại Mật Khẩu"
         android:layout_below="@id/matkhau"
         android:layout_margin="16dp"
         android:inputType="textPassword" />

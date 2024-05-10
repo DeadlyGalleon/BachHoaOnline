@@ -91,7 +91,7 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
 
-        myRef.setValue("Hello, World!6969696969esfsdsdfdsfsdfdsfsdfd");
+
 
         if(isConnected(this)){
             Toast.makeText(this, "Đã Kết nối Internet", Toast.LENGTH_SHORT).show();
@@ -162,6 +162,46 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
         // Tham chiếu đến nút "taikhoan" trong Firebase Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("taikhoan");
 
+        // Kiểm tra xem tên tài khoản đã tồn tại chưa
+        databaseReference.orderByChild("tentaikhoan").equalTo(str_tentaikhoan).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Tên tài khoản đã tồn tại
+                    Toast.makeText(getApplicationContext(), "Tên tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Kiểm tra xem số điện thoại đã tồn tại chưa
+                    databaseReference.orderByChild("sodienthoai").equalTo(str_sodienthoai).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                // Số điện thoại đã tồn tại
+                                Toast.makeText(getApplicationContext(), "Số điện thoại đã tồn tại", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Số điện thoại và tên tài khoản không trùng, tiến hành đăng ký
+                                dangKyTaiKhoan(str_tentaikhoan, str_sodienthoai, str_matkhau);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Xử lý lỗi nếu có
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
+
+    // Phương thức để đăng ký tài khoản mới
+    private void dangKyTaiKhoan(String tentaikhoan, String sodienthoai, String matkhau) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("taikhoan");
+
         // Lấy ra số lớn nhất hiện có
         databaseReference.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -179,16 +219,16 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
                 long newId = maxId + 1;
 
                 // Tạo một đối tượng Tài khoản
-                taikhoan taikhoan = new taikhoan();
-                taikhoan.setTentaikhoan(str_tentaikhoan);
-                taikhoan.setMatkhau(str_matkhau);
-                taikhoan.setSodienthoai(str_sodienthoai);
+                taikhoan newTaikhoan = new taikhoan();
+                newTaikhoan.setTentaikhoan(tentaikhoan);
+                newTaikhoan.setMatkhau(matkhau);
+                newTaikhoan.setSodienthoai(sodienthoai);
 
                 // Tạo key mới từ số lớn nhất tăng thêm 1
                 String newKey = String.valueOf(newId);
 
                 // Đẩy dữ liệu tài khoản vào Firebase Database với key mới
-                databaseReference.child(newKey).setValue(taikhoan)
+                databaseReference.child(newKey).setValue(newTaikhoan)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 // Đăng ký thành công
@@ -196,11 +236,9 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
 
                                 Intent intent = new Intent(DangKiActivity.this, DangNhapActivity.class);
                                 startActivity(intent);
-
-
                             } else {
                                 // Đăng ký thất bại
-                                Toast.makeText(DangKiActivity.this,  task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DangKiActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -211,6 +249,7 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
             }
         });
     }
+
 
 
 
