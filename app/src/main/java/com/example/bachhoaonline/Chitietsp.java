@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class Chitietsp extends AppCompatActivity {
     private DatabaseReference databaseRef;
@@ -90,6 +92,9 @@ public class Chitietsp extends AppCompatActivity {
                         stringBuilder.setLength(0);
                         stringBuilder.append("Loại sản phẩm: ").append(loaiSanPham);
                         loaiSanPhamTextView.setText(stringBuilder.toString());
+
+                        ImageView productImageView = findViewById(R.id.product_image);
+                        Picasso.get().load(hinhAnh).fit().into(productImageView);
 
                     } else {
                         // Xử lý khi không tìm thấy sản phẩm với ID tương ứng
