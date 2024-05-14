@@ -38,7 +38,7 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
             viewHolder = new ViewHolder();
             viewHolder.tenTextView = view.findViewById(R.id.tenspTextView);
             viewHolder.giaBanTextView = view.findViewById(R.id.giaBanTextView);
-            viewHolder.loaiTextView = view.findViewById(R.id.loaiTextView);
+//            viewHolder.loaiTextView = view.findViewById(R.id.loaiTextView);
             viewHolder.imageView = view.findViewById(R.id.imageView);
             viewHolder.button = view.findViewById(R.id.button); // Thêm nút vào view holder
             view.setTag(viewHolder);
