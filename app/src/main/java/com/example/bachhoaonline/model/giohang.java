@@ -17,6 +17,14 @@ public class giohang {
         this.thanhTien = thanhTien;
     }
 
+    public giohang(String idSanPham, String tenSanPham, Integer giaBan, String hinhAnh, Integer soLuong) {
+        this.idSanPham = idSanPham;
+        this.tenSanPham = tenSanPham;
+        this.giaBan = giaBan;
+        this.hinhAnh = hinhAnh;
+        this.soLuong = soLuong;
+    }
+
     public giohang() {
         // Constructor mặc định được yêu cầu cho Firebase
     }

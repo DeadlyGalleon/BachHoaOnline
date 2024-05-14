@@ -110,8 +110,8 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
                     startActivity(intentDanhSachSanPham);
                     return true;
                 } else if (item.getItemId() == R.id.navgiohang) {
-                    Intent intentGiohang = new Intent(MainActivity.this, GioHangActivity.class);
-                    startActivity(intentGiohang);
+//                    Intent intentGiohang = new Intent(MainActivity.this, GioHangActivity.class);
+//                    startActivity(intentGiohang);
                     return true;
 
                 } else if (item.getItemId() == R.id.navcanhan) {

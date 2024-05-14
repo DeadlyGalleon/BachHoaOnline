@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bachhoaonline.adapter.CartAdapter;
 import com.example.bachhoaonline.model.giohang;
+import com.example.bachhoaonline.model.sanpham;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,11 +24,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class GioHangActivity extends AppCompatActivity {
+
     private DatabaseReference databaseRef;
     private ValueEventListener valueEventListener;
     private ListView listView;
-    private List<giohang> cartItemList;
+    List<giohang> gioHangList = new ArrayList<>();
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,8 @@ public class GioHangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gio_hang);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbottomtrangchu);
-listView=findViewById(R.id.listViewCartItems);
-        cartItemList = new ArrayList<>();
+
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -59,40 +62,13 @@ listView=findViewById(R.id.listViewCartItems);
                         String idtaikhoan = sharedPreferences.getString("idtaikhoan", "");
 
                         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-                        // Tham chiếu đến nút "giohang/1/1" trong cơ sở dữ liệu
-                        databaseReference = firebaseDatabase.getReference().child("giohang").child("1").child("17");
-
-                        // Thêm một ValueEventListener để lắng nghe sự thay đổi trong dữ liệu
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String value=dataSnapshot.getValue().toString();
-
-                                if (dataSnapshot.exists()) {
-
-
-
-                                    Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // Dữ liệu không tồn tại
-                                    Toast.makeText(getApplicationContext(), "Dữ liệu không tồn tại", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                // Xử lý lỗi nếu có
-                                Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
+loadCartItems();
 
 
 //                        loadCartItems();
                     } else {
                         // Hiển thị thông báo yêu cầu đăng nhập
-                        Toast.makeText(GioHangActivity.this, "Vui lòng đăng nhập để xem giỏ hàng", Toast.LENGTH_SHORT).show();
+
                     }
                     return true;
                 } else if (item.getItemId() == R.id.navcanhan) {
@@ -107,9 +83,7 @@ listView=findViewById(R.id.listViewCartItems);
     }
 
     private boolean isUserLoggedIn() {
-        // Kiểm tra xem đã lưu thông tin tài khoản trong SharedPreferences hay chưa
-        // Trả về true nếu đã có thông tin tài khoản, ngược lại trả về false
-        // Ở đây, bạn có thể sử dụng một key cụ thể để kiểm tra (ví dụ: "username")
+
         SharedPreferences sharedPreferences = getSharedPreferences("taikhoan", MODE_PRIVATE);
         return sharedPreferences.contains("idtaikhoan");
     }
@@ -118,63 +92,122 @@ listView=findViewById(R.id.listViewCartItems);
         SharedPreferences sharedPreferences = getSharedPreferences("taikhoan", MODE_PRIVATE);
         String idtaikhoan = sharedPreferences.getString("idtaikhoan", "");
 
-        // Tham chiếu đến node giohang trong Firebase Realtime Database
-        databaseRef = FirebaseDatabase.getInstance().getReference("giohang");
+        if (!idtaikhoan.isEmpty()) {
+            DatabaseReference gioHangRef = FirebaseDatabase.getInstance().getReference("giohang").child(idtaikhoan);
+            gioHangRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot idsanpham : dataSnapshot.getChildren()) {
 
-        // Lắng nghe sự thay đổi dữ liệu trên Firebase
-        valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                cartItemList.clear(); // Xóa dữ liệu cũ trước khi nạp dữ liệu mới
+                        String idSanPham = idsanpham.getKey();
+                        Log.d("abcabc123", idSanPham.toString());
+//                        final String[] tenSanPham = {null};
+//                        final long[] giaBan = {0};
+//                        final String[] linkHinhAnh = {null};
+//                        final long[] soLuong = {0};
 
-                // Kiểm tra xem node giohang/idtaikhoan có tồn tại hay không
-                if (dataSnapshot.hasChild(idtaikhoan)) {
-                    // Duyệt qua các nút con của node idtaikhoan
-                    DataSnapshot idtaikhoanSnapshot = dataSnapshot.child(idtaikhoan);
-                    for (DataSnapshot idsanphamSnapshot : idtaikhoanSnapshot.getChildren()) {
-                        // Lấy giá trị từ mỗi child (idsanpham)
-                        String idsanpham = idsanphamSnapshot.getKey();
 
-                        // Lấy thông tin chi tiết của sản phẩm từ DataSnapshot
-                        String tensanpham = idsanphamSnapshot.child("tensanpham").getValue(String.class);
-                        String hinhanh = idsanphamSnapshot.child("hinhanh").getValue(String.class);
-                        Integer giaban = idsanphamSnapshot.child("giaban").getValue(Integer.class);
-                        Integer soluong = idsanphamSnapshot.child("soluong").getValue(Integer.class);
-                        Integer thanhtien = idsanphamSnapshot.child("thanhtien").getValue(Integer.class);
+                        DatabaseReference sanphamRef = FirebaseDatabase.getInstance().getReference("giohang").child(idtaikhoan).child(idSanPham);
+                        sanphamRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        // Tạo đối tượng giohang từ dữ liệu đã lấy và thêm vào danh sách
-                        giohang cartItem = new giohang(idsanpham, tensanpham, giaban, hinhanh, soluong, thanhtien);
-                        cartItemList.add(cartItem);
+                                giohang giohang=new giohang();
+                                    Log.d("abcabc1", snapshot.toString());
+
+                                    for (DataSnapshot sanPham : snapshot.getChildren()) {
+                                        String key = sanPham.getKey();
+                                        Object value = sanPham.getValue();
+
+                                        if (key != null && value != null) {
+                                            switch (key) {
+                                                case "tensanpham":
+                                                    giohang.setTenSanPham((String) value);
+                                                    break;
+                                                case "giaban":
+                                                    giohang.setGiaBan((Integer) value);
+                                                    break;
+                                                case "hinhanh":
+                                                    giohang.
+g
+                                                    break;
+                                                case "soluong":
+                                                  giohang.setSoLuong((Integer) value);
+                                                    break;
+
+
+                                                default:
+                                                    break;
+                                            }
+                                        }
+
+                                        giohang giohang =new giohang();
+                                        giohang.getTenSanPham(tenSanPham);
+
+
+                                    }
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.d("abcabc2",error.getMessage());
+                            }
+                        });
+//                        Log.d("hahaa1", idSanPham.toString());// Lấy id của sản phẩm
+//                        String tensanpham = idsanpham.child("tensanpham").getValue(String.class);
+//                        Log.d("hahaa1", tensanpham.toString());
+//                        String hinhanh = idsanpham.child("hinhanh").getValue(String.class);
+//                        Log.d("hahaa1", hinhanh.toString());
+//                        Integer giaban = idsanpham.child("giaban").getValue(Integer.class);
+//                        Log.d("hahaa1", giaban.toString());
+//                        Integer soluong = idsanpham.child("soluong").getValue(Integer.class);
+//                        Log.d("hahaa1", soluong.toString());
+
+//                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                            String idString = snapshot.getKey();
+//                            String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
+//                            Long giaBan = snapshot.child("giaban").getValue(Long.class);
+//                            String loaiSanPham = snapshot.child("loai").getValue(String.class);
+//                            String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
+//                            sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, loaiSanPham, hinhAnh);
+//                            sanPhamList.add(sanPham);
+//                            if (hinhAnh != null) {
+//                                Log.d("Firebase URL", hinhAnh);
+//                            }
+//                        }
+//                        if (tensanpham != null && hinhanh != null && giaban != null && soluong != null) {
+//                            // Tạo đối tượng GioHang từ dữ liệu đã lấy được
+//                            giohang gioHang = new giohang(idSanPham, tensanpham, giaban, hinhanh, soluong);
+//                            gioHangList.add(gioHang);
+//                            Log.d("abcabc", gioHangList.toString());
+//                        }
                     }
-
-                    // Hiển thị danh sách sản phẩm trong giỏ hàng
-                    displayCartItems();
-                } else {
-                    // Hiển thị thông báo khi giỏ hàng trống
-                    Toast.makeText(GioHangActivity.this, "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
+                    // Sau khi load xong dữ liệu, bạn có thể cập nhật giao diện ở đây
                 }
-            }
-
-            private void displayCartItems() {
-                // Tạo adapter để hiển thị danh sách sản phẩm trong giỏ hàng
-                CartAdapter adapter = new CartAdapter(GioHangActivity.this, cartItemList);
-
-                // Gán adapter vào ListView
-                listView.setAdapter((ListAdapter) adapter);
-            }
 
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý khi truy vấn bị hủy bỏ
-                Toast.makeText(GioHangActivity.this, "Lỗi khi tải dữ liệu từ máy chủ", Toast.LENGTH_SHORT).show();
-            }
-        };
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Xử lý khi truy vấn bị hủy bỏ
+                    Log.d("XemLoi", databaseError.getMessage().toString());
+                }
+            });
 
-        // Đăng ký lắng nghe sự thay đổi dữ liệu
-        databaseRef.addListenerForSingleValueEvent(valueEventListener);
+
+        }
+
+        else {
+            // Xử lý khi không tìm thấy idtaikhoan
+            Toast.makeText(getApplicationContext(), "Bạn Chưa Đăng Nhặp", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("abcabcabcabc", gioHangList.toString());
     }
+
+
+
 
 
 

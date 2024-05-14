@@ -60,8 +60,8 @@ public class htspact extends AppCompatActivity {
                     startActivity(intentDanhSachSanPham);
                     return true;
                 } else if (item.getItemId() == R.id.navgiohang) {
-                    Intent intentGiohang = new Intent(htspact.this, GioHangActivity.class);
-                    startActivity(intentGiohang);
+//                    Intent intentGiohang = new Intent(htspact.this, GioHangActivity.class);
+//                    startActivity(intentGiohang);
                     return true;
                 } else if (item.getItemId() == R.id.navcanhan) {
                     Intent intentCaNhan = new Intent(htspact.this, PersonalActivity.class);
