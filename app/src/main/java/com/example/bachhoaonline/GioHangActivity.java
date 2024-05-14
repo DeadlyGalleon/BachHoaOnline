@@ -119,30 +119,9 @@ loadCartItems();
                                         String key = sanPham.getKey();
                                         Object value = sanPham.getValue();
 
-                                        if (key != null && value != null) {
-                                            switch (key) {
-                                                case "tensanpham":
-                                                    giohang.setTenSanPham((String) value);
-                                                    break;
-                                                case "giaban":
-                                                    giohang.setGiaBan((Integer) value);
-                                                    break;
-                                                case "hinhanh":
-                                                    giohang.
-g
-                                                    break;
-                                                case "soluong":
-                                                  giohang.setSoLuong((Integer) value);
-                                                    break;
 
 
-                                                default:
-                                                    break;
-                                            }
-                                        }
 
-                                        giohang giohang =new giohang();
-                                        giohang.getTenSanPham(tenSanPham);
 
 
                                     }
