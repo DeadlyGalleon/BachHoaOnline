@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -60,8 +59,8 @@ public class htspact extends AppCompatActivity {
                     startActivity(intentDanhSachSanPham);
                     return true;
                 } else if (item.getItemId() == R.id.navgiohang) {
-//                    Intent intentGiohang = new Intent(htspact.this, GioHangActivity.class);
-//                    startActivity(intentGiohang);
+                    // Intent intentGiohang = new Intent(htspact.this, GioHangActivity.class);
+                    // startActivity(intentGiohang);
                     return true;
                 } else if (item.getItemId() == R.id.navcanhan) {
                     Intent intentCaNhan = new Intent(htspact.this, PersonalActivity.class);
@@ -74,34 +73,30 @@ public class htspact extends AppCompatActivity {
     }
 
     private void AnhXa() {
-        sanphamListView = findViewById(R.id.listViewSanPham); // Đã sửa lại tên đúng
-
+        sanphamListView = findViewById(R.id.listViewSanPham);
     }
 
     private void loadSanPhamData() {
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                sanPhamList.clear(); // Xóa danh sách sản phẩm cũ trước khi cập nhật
+                sanPhamList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idString = snapshot.getKey();
                     String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
                     Long giaBan = snapshot.child("giaban").getValue(Long.class);
-                    String loaiSanPham = snapshot.child("loai").getValue(String.class);
                     String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
-                    sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, loaiSanPham, hinhAnh);
+                    sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
                     sanPhamList.add(sanPham);
                     if (hinhAnh != null) {
                         Log.d("Firebase URL", hinhAnh);
                     }
                 }
 
-                // Truyền giá trị boolean vào Adapter khi tạo Adapter
                 sanphamadapter sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
                 sanphamAdapter.setOnItemClickListener(new sanphamadapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        // Xử lý khi người dùng nhấn vào nút
                         sanpham clickedItem = sanPhamList.get(position);
                         Intent intent = new Intent(htspact.this, Chitietsp.class);
                         intent.putExtra("idString", clickedItem.getIdsanpham());

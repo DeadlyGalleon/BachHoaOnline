@@ -36,9 +36,8 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
             LayoutInflater inflater = LayoutInflater.from(context);
             view = inflater.inflate(R.layout.item_sanpham, null);
             viewHolder = new ViewHolder();
-            viewHolder.tenTextView = view.findViewById(R.id.tenspTextView);
+            viewHolder.tenTextView = view.findViewById(R.id.tenheheTextView);
             viewHolder.giaBanTextView = view.findViewById(R.id.giaBanTextView);
-//            viewHolder.loaiTextView = view.findViewById(R.id.loaiTextView);
             viewHolder.imageView = view.findViewById(R.id.imageView);
             viewHolder.button = view.findViewById(R.id.button); // Thêm nút vào view holder
             view.setTag(viewHolder);
@@ -50,7 +49,6 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
 
         viewHolder.tenTextView.setText(sanPham.getTensanpham());
         viewHolder.giaBanTextView.setText(String.format("%d VND", sanPham.getGiaban()));
-        viewHolder.loaiTextView.setText(sanPham.getLoai());
         Picasso.get()
                 .load(sanPham.getHinhanh())
                 .fit()
@@ -72,7 +70,6 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
     private static class ViewHolder {
         TextView tenTextView;
         TextView giaBanTextView;
-        TextView loaiTextView;
         ImageView imageView;
         Button button; // Thêm nút vào view holder
     }
