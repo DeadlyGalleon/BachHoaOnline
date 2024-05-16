@@ -42,6 +42,8 @@ DatabaseReference rootdata;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listViewtrangchu = findViewById(R.id.listviewtrangchu);
 // Write a message to the database
 
 Control();
@@ -89,6 +91,12 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
         NagiNavigationViewTrangChu=findViewById(R.id.navtrangchu);
 
     }
+
+
+
+
+
+
 
 
     public void Control(){
@@ -141,7 +149,5 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
 
         return isConnected;
     }
-
-
 
 }

@@ -1,84 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#3FAAAA"
+    tools:context=".Chitietsp">
 
-    <!-- Hình ảnh sản phẩm -->
+    <!-- Hình ảnh sản phẩm chiếm 80% chiều rộng -->
+    <ImageView
+        android:id="@+id/imageViewProduct"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Tên sản phẩm -->
-
-    <ImageView
-        android:id="@+id/product_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop" />
-
     <TextView
-        android:id="@+id/product_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewProductName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Tên sản phẩm"
-        android:textSize="24sp"
-        android:layout_below="@id/product_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#3FAAAA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewProduct" />
 
     <!-- Giá bán -->
     <TextView
-        android:id="@+id/product_price_label"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewPrice"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Giá bán: "
-        android:textSize="18sp"
-        android:layout_below="@id/product_name"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"/>
-
-    <TextView
-        android:id="@+id/product_price_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="100.000 VNĐ"
-        android:textSize="18sp"
-        android:layout_below="@id/product_name"
-        android:layout_toEndOf="@id/product_price_label"
-        android:layout_marginTop="16dp" />
-
-    <!-- Mô tả sản phẩm -->
-    <TextView
-        android:id="@+id/product_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mô tả sản phẩm"
-        android:layout_below="@id/product_price_value"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp" />
+        android:text="Giá bán: 100,000 VND"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewProductName" />
 
-    <!-- Đánh giá -->
     <RatingBar
-        android:id="@+id/product_rating"
+        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"
-        android:rating="4"
-        android:stepSize="1"
-        android:layout_below="@id/product_type"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:rating="0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/textViewPrice"
+        app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
 
     <!-- Nút thêm vào giỏ hàng -->
+
+    <!-- Thanh điều hướng (navbar) chiếm phần dưới cùng -->
     <Button
-        android:id="@+id/add_to_cart_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonAddToCart"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="16dp"
         android:text="Thêm vào giỏ hàng"
-        android:layout_below="@id/product_rating"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
 
-    <!-- Nút xem giỏ hàng -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navbottomtrangchu"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        android:layout_marginBottom="0dp" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
