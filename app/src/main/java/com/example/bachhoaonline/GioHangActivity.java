@@ -20,8 +20,10 @@ import androidx.compose.foundation.text2.input.internal.ToCharArray_androidKt;
 
 import com.bumptech.glide.Glide;
 import com.example.bachhoaonline.adapter.CartAdapter;
+import com.example.bachhoaonline.model.donhang;
 import com.example.bachhoaonline.model.giohang;
 import com.example.bachhoaonline.model.sanpham;
+import com.example.bachhoaonline.model.sanphamdonhang;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +32,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class GioHangActivity extends AppCompatActivity {
@@ -67,12 +74,78 @@ public class GioHangActivity extends AppCompatActivity {
                 String idtaikhoan = sharedPreferences.getString("idtaikhoan", "");
 
                 if (!idtaikhoan.isEmpty()) {
+                    DatabaseReference donHangRef = FirebaseDatabase.getInstance().getReference("donhang").child(idtaikhoan); // Tham chiếu đến nút "donhang" dựa trên idtaikhoan
 
+                    donHangRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long maxId = 0;
 
-                }else Toast.makeText(GioHangActivity.this, "Vui Lòng Đăng Nhập!", Toast.LENGTH_SHORT).show();
+                            // Tìm id lớn nhất trong danh sách iddonhang hiện có
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                long id = Long.parseLong(snapshot.getKey());
+                                if (id > maxId) {
+                                    maxId = id;
+                                }
+                            }
 
+                            // Tạo một id mới bằng cách thêm 1 vào id lớn nhất
+                            long newId = maxId + 1;
+                            String idDonHang = String.valueOf(newId);
+
+                            // Tạo một đơn hàng mới
+                            donhang donHang = new donhang();
+                            donHang.setIdDonHang(idDonHang);
+                            donHang.setIdTaiKhoan(idtaikhoan);
+
+                            // Thiết lập ngày đặt hàng là thời điểm hiện tại
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                            String currentDateAndTime = sdf.format(new Date());
+                            donHang.setNgaydat(currentDateAndTime);
+
+                            // Thiết lập ngày giao hàng là rỗng
+                            donHang.setNgaygiao("");
+
+                            // Khởi tạo danh sách sản phẩm
+                            donHang.setListSanPhamDonHang(new ArrayList<>());
+
+                            int tongTien = 0;
+                            // Tính tổng tiền dựa trên số lượng và giá bán của từng sản phẩm trong giỏ hàng
+                            for (giohang gioHang : gioHangList) {
+                                int soLuong = gioHang.getSoLuong();
+                                int giaBan = gioHang.getGiaBan();
+                                tongTien += soLuong * giaBan;
+
+                                // Tạo một đối tượng SanPham và thêm vào danh sách sản phẩm của đơn hàng
+                                sanphamdonhang sanPham = new sanphamdonhang();
+                                sanPham.setIdSanPham(gioHang.getIdSanPham());
+                                sanPham.setTensanpham(gioHang.getTenSanPham());
+                                sanPham.setHinhanh(gioHang.getHinhAnh());
+                                sanPham.setGiaCu(gioHang.getGiaBan());
+                                sanPham.setSoLuong(gioHang.getSoLuong());
+                                donHang.getListSanPhamDonHang().add(sanPham);
+
+                            }
+                            // Thiết lập tổng tiền cho đơn hàng
+                            donHang.setTongTien(tongTien);
+
+                            // Đặt dữ liệu đơn hàng vào Firebase
+                            donHangRef.child(idDonHang).setValue(donHang);
+
+                            Toast.makeText(GioHangActivity.this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Xử lý khi truy vấn bị hủy bỏ
+                        }
+                    });
+                } else {
+                    Toast.makeText(GioHangActivity.this, "Vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbottomtrangchu);
@@ -149,7 +222,7 @@ public class GioHangActivity extends AppCompatActivity {
                                     if (key.equals("hinhanh")) {
                                         String tensanpham = (String) value;
                                         Log.d("abcabc1", tensanpham);
-                                        giohang.setTenSanPham(tensanpham);
+                                        giohang.setHinhAnh(tensanpham);
                                     }
                                     if (key.equals("soluong")) {
                                         Long soluong = sanPham.getValue(Long.class); // Chuyển đổi sang kiểu Long

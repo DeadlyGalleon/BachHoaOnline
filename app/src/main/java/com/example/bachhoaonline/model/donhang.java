@@ -1,12 +1,75 @@
 package com.example.bachhoaonline.model;
 
+import java.util.ArrayList;
+
 public class donhang {
-    private int idDonHang;
-    private int idTaiKhoan;
-    private String listSanPhamDonHang;
-    private String ngayGio;
-    private String trangThai;
+    private String idDonHang;
+    private String idTaiKhoan;
+    private ArrayList<sanphamdonhang> listSanPhamDonHang;
+    private String ngaydat;
+    private String ngaygiao;
+    private int trangThai;
     private double tongTien;
+
+    public donhang(String idDonHang, String idTaiKhoan, String ngaydat, String ngaygiao, int trangThai, double tongTien) {
+        this.idDonHang = idDonHang;
+        this.idTaiKhoan = idTaiKhoan;
+        this.ngaydat = ngaydat;
+        this.ngaygiao = ngaygiao;
+        this.trangThai = trangThai;
+        this.tongTien = tongTien;
+    }
+
+    public donhang() {
+    }
+
+    public String getIdDonHang() {
+        return idDonHang;
+    }
+
+    public void setIdDonHang(String idDonHang) {
+        this.idDonHang = idDonHang;
+    }
+
+    public String getIdTaiKhoan() {
+        return idTaiKhoan;
+    }
+
+    public void setIdTaiKhoan(String idTaiKhoan) {
+        this.idTaiKhoan = idTaiKhoan;
+    }
+
+    public ArrayList<sanphamdonhang> getListSanPhamDonHang() {
+        return listSanPhamDonHang;
+    }
+
+    public void setListSanPhamDonHang(ArrayList<sanphamdonhang> listSanPhamDonHang) {
+        this.listSanPhamDonHang = listSanPhamDonHang;
+    }
+
+    public String getNgaydat() {
+        return ngaydat;
+    }
+
+    public void setNgaydat(String ngaydat) {
+        this.ngaydat = ngaydat;
+    }
+
+    public String getNgaygiao() {
+        return ngaygiao;
+    }
+
+    public void setNgaygiao(String ngaygiao) {
+        this.ngaygiao = ngaygiao;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
 
     public double getTongTien() {
         return tongTien;
@@ -14,45 +77,5 @@ public class donhang {
 
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
-    }
-
-    public int getIdDonHang() {
-        return idDonHang;
-    }
-
-    public void setIdDonHang(int idDonHang) {
-        this.idDonHang = idDonHang;
-    }
-
-    public int getIdTaiKhoan() {
-        return idTaiKhoan;
-    }
-
-    public void setIdTaiKhoan(int idTaiKhoan) {
-        this.idTaiKhoan = idTaiKhoan;
-    }
-
-    public String getListSanPhamDonHang() {
-        return listSanPhamDonHang;
-    }
-
-    public void setListSanPhamDonHang(String listSanPhamDonHang) {
-        this.listSanPhamDonHang = listSanPhamDonHang;
-    }
-
-    public String getNgayGio() {
-        return ngayGio;
-    }
-
-    public void setNgayGio(String ngayGio) {
-        this.ngayGio = ngayGio;
-    }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
     }
 }
