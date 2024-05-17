@@ -56,12 +56,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
-            textViewProductName = itemView.findViewById(R.id.textViewProductName);
-            textViewProductPrice = itemView.findViewById(R.id.textViewProductPrice);
-            buttonDecreaseQuantity = itemView.findViewById(R.id.buttonDecreaseQuantity);
-            textViewQuantity = itemView.findViewById(R.id.textViewQuantity);
-            buttonIncreaseQuantity = itemView.findViewById(R.id.buttonIncreaseQuantity);
+//            imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
+//            textViewProductName = itemView.findViewById(R.id.textViewProductName);
+//            textViewProductPrice = itemView.findViewById(R.id.textViewProductPrice);
+//            buttonDecreaseQuantity = itemView.findViewById(R.id.buttonDecreaseQuantity);
+//            textViewQuantity = itemView.findViewById(R.id.textViewQuantity);
+//            buttonIncreaseQuantity = itemView.findViewById(R.id.buttonIncreaseQuantity);
         }
     }
 }
