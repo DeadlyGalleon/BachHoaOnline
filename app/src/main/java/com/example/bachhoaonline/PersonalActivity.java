@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class PersonalActivity extends AppCompatActivity {
     Button dangnhap;
     Button dangxuat;
+    Button donhang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,12 @@ public class PersonalActivity extends AppCompatActivity {
             // User is logged in, hide login button and show logout button
             dangnhap.setVisibility(View.GONE);
             dangxuat.setVisibility(View.VISIBLE);
+            donhang.setVisibility(View.VISIBLE);
         } else {
             // User is not logged in, hide logout button and show login button
             dangnhap.setVisibility(View.VISIBLE);
             dangxuat.setVisibility(View.GONE);
+
         }
 
         dangnhap.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +54,17 @@ public class PersonalActivity extends AppCompatActivity {
 
             }
         });
+
+        donhang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DonHangActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
 
         dangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +89,7 @@ public class PersonalActivity extends AppCompatActivity {
     public void anhxa(){
         dangnhap=findViewById(R.id.loginButton);
         dangxuat=findViewById(R.id.logoutButton);
+        donhang=findViewById(R.id.manh);
     }
 
     public void Control(){
