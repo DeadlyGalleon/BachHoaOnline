@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
@@ -56,27 +58,36 @@ Control();
             Toast.makeText(this, "Kết Nối Internet thất bại", Toast.LENGTH_SHORT).show();
         }
 
+        ViewFlipper viewFlipper = findViewById(R.id.quangcaotrangchu);
+
+        String[] imageUrls = {
+                "https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/10/21/3b360279-8b43-40f3-9b11-604749128187-thumb-1666321262795-16663212629521126675042.jpg",
+                "https://cdn.tgdd.vn/2020/12/CookProduct/thumbcn-1200x676-9.jpg",
+                "https://nhomkimanh.com/upload/images/x%C6%B0%E1%BB%9Fng%20s%E1%BB%89%20xoong%20n%E1%BB%93i%20ch%E1%BA%A3o%201.jpg"
+        };
+
+        for (String url : imageUrls) {
+            ImageView imageView = new ImageView(this);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            // Sử dụng Glide để tải hình ảnh từ URL và hiển thị trong ImageView
+            Glide.with(this)
+                    .load(url)
+                    .into(imageView);
+
+            viewFlipper.addView(imageView);
+        }
+
+        // Tùy chỉnh hiệu ứng chuyển đổi nếu muốn
+        viewFlipper.setInAnimation(this, android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(this, android.R.anim.slide_out_right);
+        viewFlipper.setFlipInterval(3000); // 3 giây
+        viewFlipper.setAutoStart(true);
+
 
 
         // Lắng nghe sự kiện khi người dùng nhấn vào nút đăng nhập trên Toolbar
-        ImageButton loginButton = toolbar.findViewById(R.id.action_login);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển hướng sang màn hình đăng nhập (formlogin.xml)
-                Intent intent = new Intent(MainActivity.this, DangNhapActivity.class);
-                startActivity(intent);
-            }
-        });
-        ImageButton themsanphambtn = toolbar.findViewById(R.id.addproduct);
-        themsanphambtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển hướng sang màn hình đăng nhập (formlogin.xml)
-                Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         // Tiếp tục với các xử lý khác của MainActivity
     }
@@ -118,8 +129,8 @@ ViewFlipperTrangchu=findViewById(R.id.quangcaotrangchu);
                     startActivity(intentDanhSachSanPham);
                     return true;
                 } else if (item.getItemId() == R.id.navgiohang) {
-//                    Intent intentGiohang = new Intent(MainActivity.this, GioHangActivity.class);
-//                    startActivity(intentGiohang);
+                    Intent intentGiohang = new Intent(MainActivity.this, GioHangActivity.class);
+                    startActivity(intentGiohang);
                     return true;
 
                 } else if (item.getItemId() == R.id.navcanhan) {
