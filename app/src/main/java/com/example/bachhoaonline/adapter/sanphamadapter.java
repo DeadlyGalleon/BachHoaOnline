@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.bachhoaonline.model.sanpham;
 import com.example.bachhoaonline.R;
+import com.example.bachhoaonline.model.sanpham;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -28,50 +29,91 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
     }
 
     @Override
+    public int getCount() {
+        return (sanPhamList.size() + 1) / 2; // mỗi hàng có hai sản phẩm
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         ViewHolder viewHolder;
 
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            view = inflater.inflate(R.layout.item_sanpham, null);
+            view = inflater.inflate(R.layout.item_sanpham, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.tenTextView = view.findViewById(R.id.tenheheTextView);
-            viewHolder.giaBanTextView = view.findViewById(R.id.giaBanTextView);
-            viewHolder.imageView = view.findViewById(R.id.imageView);
-            viewHolder.button = view.findViewById(R.id.button); // Thêm nút vào view holder
+            viewHolder.tenTextView1 = view.findViewById(R.id.tenTextView1);
+            viewHolder.giaTextView1 = view.findViewById(R.id.giaTextView1);
+            viewHolder.imageView1 = view.findViewById(R.id.imageView1);
+            viewHolder.button1 = view.findViewById(R.id.button1);
+            viewHolder.productLayout1 = view.findViewById(R.id.productLayout1);
+
+            viewHolder.tenTextView2 = view.findViewById(R.id.tenTextView2);
+            viewHolder.giaTextView2 = view.findViewById(R.id.giaTextView2);
+            viewHolder.imageView2 = view.findViewById(R.id.imageView2);
+            viewHolder.button2 = view.findViewById(R.id.button2);
+            viewHolder.productLayout2 = view.findViewById(R.id.productLayout2);
+
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        sanpham sanPham = sanPhamList.get(position);
-
-        viewHolder.tenTextView.setText(sanPham.getTensanpham());
-        viewHolder.giaBanTextView.setText(String.format("%d VND", sanPham.getGiaban()));
+        // Lấy sản phẩm thứ nhất
+        sanpham sanPham1 = sanPhamList.get(position * 2);
+        viewHolder.tenTextView1.setText(sanPham1.getTensanpham());
+        viewHolder.giaTextView1.setText(String.format("%d VND", sanPham1.getGiaban()));
         Picasso.get()
-                .load(sanPham.getHinhanh())
+                .load(sanPham1.getHinhanh())
                 .fit()
-                .into(viewHolder.imageView);
-
-        // Thiết lập sự kiện cho nút
-        viewHolder.button.setOnClickListener(new View.OnClickListener() {
+                .into(viewHolder.imageView1);
+        viewHolder.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemClick(position);
+                    mListener.onItemClick(position * 2);
                 }
             }
         });
+
+        // Kiểm tra xem có sản phẩm thứ hai không
+        if (position * 2 + 1 < sanPhamList.size()) {
+            sanpham sanPham2 = sanPhamList.get(position * 2 + 1);
+            viewHolder.productLayout2.setVisibility(View.VISIBLE);
+            viewHolder.tenTextView2.setText(sanPham2.getTensanpham());
+            viewHolder.giaTextView2.setText(String.format("%d VND", sanPham2.getGiaban()));
+            Picasso.get()
+                    .load(sanPham2.getHinhanh())
+                    .fit()
+                    .into(viewHolder.imageView2);
+            viewHolder.button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.onItemClick(position * 2 + 1);
+                    }
+                }
+            });
+        } else {
+            // Ẩn layout của sản phẩm thứ hai nếu không có
+            viewHolder.productLayout2.setVisibility(View.INVISIBLE);
+        }
 
         return view;
     }
 
     private static class ViewHolder {
-        TextView tenTextView;
-        TextView giaBanTextView;
-        ImageView imageView;
-        Button button; // Thêm nút vào view holder
+        TextView tenTextView1;
+        TextView giaTextView1;
+        ImageView imageView1;
+        Button button1;
+        LinearLayout productLayout1;
+
+        TextView tenTextView2;
+        TextView giaTextView2;
+        ImageView imageView2;
+        Button button2;
+        LinearLayout productLayout2;
     }
 
     public interface OnItemClickListener {
