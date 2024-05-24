@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,13 +18,20 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
+import com.example.bachhoaonline.adapter.SanPhamMoiAdapter;
+import com.example.bachhoaonline.model.sanpham;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationViewTrangChu;
     NavigationView NagiNavigationViewTrangChu;
 
-
+    private RecyclerView recyclerView;
+    private SanPhamMoiAdapter adapter;
+    private List<sanpham> sanPhamList;
+    private Handler handler;
+    private Runnable runnable;
 //thiendeptrai
 DatabaseReference rootdata;
 
@@ -85,11 +98,64 @@ Control();
         viewFlipper.setAutoStart(true);
 
 
+        recyclerView = findViewById(R.id.sanphammoitrangchu);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        sanPhamList = new ArrayList<>();
+        adapter = new SanPhamMoiAdapter(this, sanPhamList);
+        recyclerView.setAdapter(adapter);
+
+        loadSanPhamMoi();
+
+        // Tự động di chuyển slide
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                int position = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                if (position < sanPhamList.size() - 1) {
+                    recyclerView.smoothScrollToPosition(position + 1);
+                } else {
+                    recyclerView.smoothScrollToPosition(0);
+                }
+                handler.postDelayed(this, 3000); // Thời gian chuyển slide
+            }
+        };
+        handler.postDelayed(runnable, 3000); // Thời gian chuyển slide
+
+
 
         // Lắng nghe sự kiện khi người dùng nhấn vào nút đăng nhập trên Toolbar
 
 
         // Tiếp tục với các xử lý khác của MainActivity
+    }
+
+    private void loadSanPhamMoi() {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("sanpham");
+        databaseRef.orderByKey().limitToLast(6).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sanPhamList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String idString = snapshot.getKey();
+                    String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
+                    Long giaBan = snapshot.child("giaban").getValue(Long.class);
+                    String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
+                    sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
+                    sanPhamList.add(sanPham);
+                    if (hinhAnh != null) {
+                        Log.d("Firebase URL", hinhAnh);
+                    }
+                }
+                // Sau khi đã lấy được 6 sản phẩm mới nhất, cập nhật RecyclerView
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra
+            }
+        });
     }
 
 

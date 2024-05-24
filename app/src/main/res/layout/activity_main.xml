@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,9 +26,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:titleTextColor="@android:color/white"
                 app:title="Trang Chủ">
-
-                <!-- Nút hành động -->
-
             </androidx.appcompat.widget.Toolbar>
 
             <!-- ViewFlipper -->
@@ -38,8 +36,6 @@
                 android:flipInterval="3000"
                 android:autoStart="true">
             </ViewFlipper>
-
-
 
             <!-- Layout chứa tiêu đề "Sản Phẩm Mới" và RecyclerView -->
             <LinearLayout
@@ -53,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Sản Phẩm Mới"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textAlignment="center"
                     android:textSize="25sp" />
 
@@ -64,10 +60,6 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
             </LinearLayout>
-
-            <!-- Bottom Navigation -->
-
-
         </LinearLayout>
 
         <!-- NavigationView (Drawer) -->
@@ -76,14 +68,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start">
-
-            <!-- ListView của NavigationView -->
             <ListView
                 android:id="@+id/listviewtrangchu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </com.google.android.material.navigation.NavigationView>
-
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <!-- Bottom Navigation -->
@@ -91,12 +80,9 @@
         android:id="@+id/navbottomtrangchu"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
-        android:layout_marginBottom="0dp" />
+        app:menu="@menu/bottom_navigation_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>
