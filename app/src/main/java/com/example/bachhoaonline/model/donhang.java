@@ -3,6 +3,7 @@ package com.example.bachhoaonline.model;
 import java.util.ArrayList;
 
 public class donhang {
+    private String DiaChi;
     private String idDonHang;
     private String idTaiKhoan;
     private ArrayList<sanphamdonhang> listSanPhamDonHang;
@@ -10,6 +11,14 @@ public class donhang {
     private String ngaygiao;
     private int trangThai;
     private double tongTien;
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        DiaChi = diaChi;
+    }
 
     public donhang(String idDonHang, String idTaiKhoan, String ngaydat, String ngaygiao, int trangThai, double tongTien) {
         this.idDonHang = idDonHang;

@@ -1,6 +1,8 @@
 package com.example.bachhoaonline.model;
 
-public class giohang {
+import java.io.Serializable;
+
+public class giohang implements Serializable {
     private String idSanPham; // Mã sản phẩm (tùy chỉnh tên nếu cần)
     private String tenSanPham;
     private Integer giaBan;

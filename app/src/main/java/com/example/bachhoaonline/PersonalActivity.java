@@ -79,6 +79,7 @@ public class PersonalActivity extends AppCompatActivity {
                 // Hide logout button and show login button
                 dangxuat.setVisibility(View.GONE);
                 dangnhap.setVisibility(View.VISIBLE);
+                donhang.setVisibility(View.GONE);
                 Toast.makeText(PersonalActivity.this, "Đăng Xuất Thành Công!", Toast.LENGTH_SHORT).show();
 
             }

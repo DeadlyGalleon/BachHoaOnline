@@ -1,39 +1,29 @@
 package com.example.bachhoaonline.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.bachhoaonline.model.Loai;
-
-import java.util.List;
-
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.example.bachhoaonline.R;
-import com.example.bachhoaonline.model.Loai;
+import com.example.bachhoaonline.model.loaicon;
 
 import java.util.List;
 
-public class LoaiAdapter extends ArrayAdapter<Loai> {
+public class LoaiConAdapter extends ArrayAdapter<loaicon> {
 
     private Context context;
-    private List<Loai> loaiList;
+    private List<loaicon> loaiConList;
 
-    public LoaiAdapter(@NonNull Context context, @NonNull List<Loai> objects) {
+    public LoaiConAdapter(@NonNull Context context, @NonNull List<loaicon> objects) {
         super(context, 0, objects);
         this.context = context;
-        this.loaiList = objects;
+        this.loaiConList = objects;
     }
 
     @NonNull
@@ -53,10 +43,10 @@ public class LoaiAdapter extends ArrayAdapter<Loai> {
         }
 
         TextView textViewName = convertView.findViewById(R.id.textViewName);
-        Loai currentItem = getItem(position);
+        loaicon currentItem = getItem(position);
 
         if (currentItem != null) {
-            textViewName.setText(currentItem.getTenloai());
+            textViewName.setText(currentItem.getTenloaicon());
         }
 
         return convertView;

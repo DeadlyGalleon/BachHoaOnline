@@ -1,32 +1,15 @@
 package com.example.bachhoaonline.model;
 
-public class loaicon
-{
+public class loaicon {
     private Integer idloaicha;
     private Integer idloaicon;
-    private Integer tenloaicon;
-    private  String hinhanhloaicon;
+    private String tenloaicon;
+    private String hinhanhloaicon;
 
-    public String getHinhanhloaicon() {
-        return hinhanhloaicon;
-    }
-
-    public loaicon(Integer idloaicha, Integer idloaicon, Integer tenloaicon, String hinhanhloaicon) {
+    public loaicon(Integer idloaicha, Integer idloaicon, String tenloaicon) {
         this.idloaicha = idloaicha;
         this.idloaicon = idloaicon;
         this.tenloaicon = tenloaicon;
-        this.hinhanhloaicon = hinhanhloaicon;
-    }
-
-
-    public loaicon(Integer idloaicha, Integer idloaicon, Integer tenloaicon) {
-        this.idloaicha = idloaicha;
-        this.idloaicon = idloaicon;
-        this.tenloaicon = tenloaicon;
-    }
-
-    public void setHinhanhloaicon(String hinhanhloaicon) {
-        this.hinhanhloaicon = hinhanhloaicon;
     }
 
     public Integer getIdloaicha() {
@@ -45,11 +28,20 @@ public class loaicon
         this.idloaicon = idloaicon;
     }
 
-    public Integer getTenloaicon() {
+    public String getTenloaicon() {
         return tenloaicon;
     }
 
-    public void setTenloaicon(Integer tenloaicon) {
+    public void setTenloaicon(String tenloaicon) {
         this.tenloaicon = tenloaicon;
     }
+
+    public String getHinhanhloaicon() {
+        return hinhanhloaicon;
+    }
+
+    public void setHinhanhloaicon(String hinhanhloaicon) {
+        this.hinhanhloaicon = hinhanhloaicon;
+    }
 }
+

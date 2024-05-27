@@ -216,7 +216,7 @@ public class AddProductActivity extends AppCompatActivity {
                         DatabaseReference sanPhamRef = database.getReference("sanpham").child(String.valueOf(newKey));
 
                         // Tạo đối tượng sanPham với key mới và thêm vào cơ sở dữ liệu
-                        sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), ((Loai) spinnerLoai.getSelectedItem()).getIdloai(), imageUrl);
+                        sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), Integer.parseInt (((Loai) spinnerLoai.getSelectedItem()).getIdloai()), imageUrl);
                         sanPhamRef.setValue(sanPham)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

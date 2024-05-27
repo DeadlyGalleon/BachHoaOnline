@@ -9,7 +9,6 @@
     android:background="#3FAAAA"
     tools:context=".htspact">
 
-    <!-- SearchView ở phía trên ListView -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
@@ -21,7 +20,6 @@
         android:queryHint="Search here"
         android:background="?android:attr/windowBackground"/>
 
-    <!-- Spinner cho loại sản phẩm -->
     <Spinner
         android:id="@+id/spinnerLoaiSanPham"
         android:layout_width="0dp"
@@ -33,7 +31,6 @@
         android:layout_marginHorizontal="16dp"
         android:background="?android:attr/windowBackground"/>
 
-    <!-- Spinner cho loại con của sản phẩm -->
     <Spinner
         android:id="@+id/spinnerLoaiConSanPham"
         android:layout_width="0dp"
@@ -45,7 +42,6 @@
         android:layout_marginHorizontal="16dp"
         android:background="?android:attr/windowBackground"/>
 
-    <!-- ListView ở dưới Spinner -->
     <ListView
         android:id="@+id/listViewSanPham"
         android:layout_width="0dp"
@@ -56,7 +52,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- BottomNavigationView ở dưới ListView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbottomtrangchu"
         android:layout_width="0dp"

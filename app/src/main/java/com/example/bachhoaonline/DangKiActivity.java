@@ -101,10 +101,6 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
         initView();
         initControl();
 
-
-
-
-
     }
     @Override
     protected void onDestroy() {
@@ -158,10 +154,8 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
             Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
             return;
         }
-
         // Tham chiếu đến nút "taikhoan" trong Firebase Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("taikhoan");
-
         // Kiểm tra xem tên tài khoản đã tồn tại chưa
         databaseReference.orderByChild("tentaikhoan").equalTo(str_tentaikhoan).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

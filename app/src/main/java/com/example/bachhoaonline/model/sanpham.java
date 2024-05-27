@@ -4,9 +4,9 @@ public class sanpham {
     private String idsanpham;
     private String tensanpham;
     private  Long giaban;
-    private String loai;
+    private Integer loai;
     private String hinhanh;
-    public sanpham(String idsanpham, String tensanpham, Long giaban, String loai, String hinhanh) {
+    public sanpham(String idsanpham, String tensanpham, Long giaban, Integer loai, String hinhanh) {
         this.idsanpham = idsanpham;
         this.tensanpham = tensanpham;
         this.giaban = giaban;
@@ -14,11 +14,11 @@ public class sanpham {
         this.hinhanh = hinhanh;
     }
 
-    public String getLoai() {
+    public Integer getLoai() {
         return loai;
     }
 
-    public void setLoai(String loai) {
+    public void setLoai(Integer loai) {
         this.loai = loai;
     }
 
@@ -28,6 +28,14 @@ public class sanpham {
         this.tensanpham = tensanpham;
         this.giaban = giaban;
         this.hinhanh = hinhanh;
+    }
+    public sanpham(String idsanpham, String tensanpham, Long giaban, String hinhanh,Integer loai) {
+        this.idsanpham = idsanpham;
+        this.tensanpham = tensanpham;
+        this.giaban = giaban;
+        this.hinhanh = hinhanh;
+        this.loai=loai;
+
     }
 
     public sanpham(String idsanpham, String tensanpham, Long giaban) {
