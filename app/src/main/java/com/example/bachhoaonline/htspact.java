@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import androidx.appcompat.widget.SearchView;
 
 public class htspact extends AppCompatActivity {
 
@@ -38,6 +39,9 @@ public class htspact extends AppCompatActivity {
     private Spinner spinnerLoaiSanPham, spinnerLoaiConSanPham;
     private List<Loai> loaiSanPhamList = new ArrayList<>();
     private List<loaicon> loaiConSanPhamList = new ArrayList<>();
+    private SearchView searchView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +122,8 @@ public class htspact extends AppCompatActivity {
         sanphamListView = findViewById(R.id.listViewSanPham);
         spinnerLoaiSanPham = findViewById(R.id.spinnerLoaiSanPham);
         spinnerLoaiConSanPham = findViewById(R.id.spinnerLoaiConSanPham);
+        sanphamListView = findViewById(R.id.listViewSanPham);
+        searchView = findViewById(R.id.searchView);
     }
 
     private void loadLoaiSanPham() {
@@ -246,6 +252,21 @@ public class htspact extends AppCompatActivity {
                     }
                 });
                 sanphamListView.setAdapter(sanphamAdapter);
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        sanphamAdapter.filter(newText);
+                        return false;
+                    }
+                });
+
+
+
             }
 
             @Override
@@ -253,6 +274,9 @@ public class htspact extends AppCompatActivity {
                 // Xử lý khi truy vấn bị hủy bỏ
             }
         });
+
+
+
     }
 
     private void loadSanPhamTheoIdLoaiCon(Integer idloaiCon) {

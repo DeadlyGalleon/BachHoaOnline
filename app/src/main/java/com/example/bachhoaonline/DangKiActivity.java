@@ -217,12 +217,12 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
                 newTaikhoan.setTentaikhoan(tentaikhoan);
                 newTaikhoan.setMatkhau(matkhau);
                 newTaikhoan.setSodienthoai(sodienthoai);
-String r="cac";
+
                 // Tạo key mới từ số lớn nhất tăng thêm 1
                 String newKey = String.valueOf(newId);
 
                 // Đẩy dữ liệu tài khoản vào Firebase Database với key mới
-                databaseReference.child(newKey).setValue(r)
+                databaseReference.child(newKey).setValue(newTaikhoan)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 // Đăng ký thành công

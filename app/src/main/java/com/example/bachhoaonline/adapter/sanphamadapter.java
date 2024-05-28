@@ -14,6 +14,7 @@ import com.example.bachhoaonline.R;
 import com.example.bachhoaonline.model.sanpham;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class sanphamadapter extends ArrayAdapter<sanpham> {
@@ -21,11 +22,14 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
     private Context context;
     private OnItemClickListener mListener;
     private List<sanpham> sanPhamList;
+    private List<sanpham> originalSanPhamList;
 
     public sanphamadapter(Context context, List<sanpham> sanPhamList) {
         super(context, R.layout.item_sanpham, sanPhamList);
         this.context = context;
         this.sanPhamList = sanPhamList;
+        this.originalSanPhamList = new ArrayList<>(sanPhamList);
+
     }
 
     @Override
@@ -100,6 +104,22 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
         }
 
         return view;
+    }
+    public void filter(String query) {
+        query = query.toLowerCase();
+        sanPhamList.clear();
+
+        if (query.isEmpty()) {
+            sanPhamList.addAll(originalSanPhamList);
+        } else {
+            for (sanpham product : originalSanPhamList) {
+                if (product.getTensanpham().toLowerCase().contains(query)) {
+                    sanPhamList.add(product);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     private static class ViewHolder {
