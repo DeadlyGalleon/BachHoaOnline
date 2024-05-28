@@ -1,6 +1,5 @@
 package com.example.bachhoaonline.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +15,18 @@ import com.example.bachhoaonline.model.sanphamdonhang;
 
 import java.util.List;
 
-public class sanphamdonhangAdapter extends RecyclerView.Adapter<sanphamdonhangAdapter.ProductViewHolder> {
-    private Context context;
+public class sanphamdonhangadapter extends RecyclerView.Adapter<sanphamdonhangadapter.ProductViewHolder> {
+
     private List<sanphamdonhang> productList;
 
-    public sanphamdonhangAdapter(Context context, List<sanphamdonhang> productList) {
-        this.context = context;
+    public sanphamdonhangadapter(List<sanphamdonhang> productList) {
         this.productList = productList;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.sanpham_donhang_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sanpham_donhang_item, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -36,9 +34,18 @@ public class sanphamdonhangAdapter extends RecyclerView.Adapter<sanphamdonhangAd
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         sanphamdonhang product = productList.get(position);
         holder.productName.setText(product.getTensanpham());
-        holder.productPrice.setText(new StringBuilder().append(String.format("%,.0f VNĐ", product.getGiaCu())).toString());
-        holder.productQuantity.setText(new StringBuilder().append("Số lượng: ").append(product.getSoLuong()).toString());
-        Glide.with(context).load(product.getHinhanh()).into(holder.productImage);
+        StringBuilder stringBuilder = new StringBuilder();
+
+// Giá sản phẩm
+        stringBuilder.append(String.format("%,.0f VNĐ", product.getGiaCu()));
+        holder.productPrice.setText(stringBuilder.toString());
+        stringBuilder.setLength(0);
+
+// Số lượng sản phẩm
+        stringBuilder.append("Số lượng: ").append(product.getSoLuong());
+        holder.productQuantity.setText(stringBuilder.toString());
+
+        Glide.with(holder.itemView.getContext()).load(product.getHinhanh()).into(holder.productImage);
     }
 
     @Override
@@ -46,7 +53,7 @@ public class sanphamdonhangAdapter extends RecyclerView.Adapter<sanphamdonhangAd
         return productList.size();
     }
 
-    public static class ProductViewHolder extends RecyclerView.ViewHolder {
+    static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName, productPrice, productQuantity;
 
@@ -59,4 +66,3 @@ public class sanphamdonhangAdapter extends RecyclerView.Adapter<sanphamdonhangAd
         }
     }
 }
-

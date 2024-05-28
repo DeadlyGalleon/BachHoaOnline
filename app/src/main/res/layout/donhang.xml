@@ -20,68 +20,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Thông tin đơn hàng -->
-    <TextView
-        android:id="@+id/tv_order_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID Đơn hàng: "
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_title"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_order_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ngày đặt: "
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_id"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_delivery_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ngày giao: "
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_date"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_order_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tình trạng: "
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_delivery_date"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Danh sách sản phẩm -->
-    <TextView
-        android:id="@+id/tv_order_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tổng tiền: "
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_order_total"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_status"
-        app:layout_constraintVertical_bias="0.055" />
-
-    <ScrollView
+    <!-- RecyclerView for Order List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_order_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_order_total"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <LinearLayout
-            android:id="@+id/product_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

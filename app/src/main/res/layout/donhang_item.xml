@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_marginBottom="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
 
-    <TextView
-        android:id="@+id/order_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID Đơn hàng: "
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/order_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ngày đặt: "
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/delivery_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ngày giao: "
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/order_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tình trạng: "
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/order_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tổng tiền: "
-        android:textSize="16sp" />
-
-    <!-- RecyclerView cho danh sách sản phẩm -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_products"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID Đơn hàng: "
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày đặt: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_delivery_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày giao: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tình trạng: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_order_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền: "
+            android:textSize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_product_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
