@@ -5,10 +5,18 @@ public class sanpham {
     private String tensanpham;
     private  Long giaban;
     private Integer loai;
+    private Integer loaicon;
+
     private String hinhanh;
     private String mota;
 
+    public Integer getLoaicon() {
+        return loaicon;
+    }
 
+    public void setLoaicon(Integer loaicon) {
+        this.loaicon = loaicon;
+    }
 
     public sanpham(String idsanpham, String tensanpham, Long giaban, Integer loai, String hinhanh) {
         this.idsanpham = idsanpham;

@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bachhoaonline.adapter.LoaiAdapter;
+import com.example.bachhoaonline.adapter.LoaiConSpinnerAdapter;
 import com.example.bachhoaonline.adapter.sanphamadapter;
 import com.example.bachhoaonline.model.Loai;
 import com.example.bachhoaonline.model.loaicon;
@@ -94,6 +95,8 @@ public class htspact extends AppCompatActivity {
 //                loadLoaiConSanPham(selectedLoai.getIdloai());
                 Loai selectedLoai = loaiSanPhamList.get(position);
                 loadSanPhamTheoIdLoai( selectedLoai.getIdloai().toString());
+                loadLoaiConSanPham(selectedLoai.getIdloai().toString() );
+
                 Log.d("abcabc1",selectedLoai.getTenloai().toString());
                 Log.d("abcabc1",selectedLoai.getIdloai().toString());
             }
@@ -109,6 +112,7 @@ public class htspact extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 loaicon selectedLoaiCon = loaiConSanPhamList.get(position);
                 loadSanPhamTheoIdLoaiCon(selectedLoaiCon.getIdloaicon());
+
             }
 
             @Override
@@ -161,7 +165,7 @@ public class htspact extends AppCompatActivity {
         } else {
 
             DatabaseReference sanPhamRef = FirebaseDatabase.getInstance().getReference().child("sanpham");
-            Query query = sanPhamRef.orderByChild("loai").equalTo(idLoai);
+            Query query = sanPhamRef.orderByChild("loai").equalTo(Integer.parseInt(idLoai));
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -212,7 +216,7 @@ public class htspact extends AppCompatActivity {
                     String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
                     Long giaBan = snapshot.child("giaban").getValue(Long.class);
                     String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
-                    String idloai=snapshot.child("loai").getValue(String.class);
+
                     sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
                     sanPhamList.add(sanPham);
                 }
@@ -254,11 +258,55 @@ public class htspact extends AppCompatActivity {
 
 
     }
+    private void loadLoaiConSanPham(String idLoai) {
+        // Kiểm tra nếu idloai là 0 thì không tải loại con
+        if (idLoai.equals("0") || idLoai.isEmpty()) {
+            // Xóa danh sách loại con và không cần tải dữ liệu
+            loaiConSanPhamList.clear();
+            return;
+
+        }
+        Log.d("idloai",idLoai);
+
+        DatabaseReference loaiConSanPhamRef = FirebaseDatabase.getInstance().getReference().child("loai").child(idLoai).child("loaicon");
+        loaiConSanPhamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                loaiConSanPhamList.clear();
+                loaicon tatCaLoaiCon = new loaicon();
+                tatCaLoaiCon.setIdloaicon(0); // Gán id cho loaicon "Tất Cả"
+                tatCaLoaiCon.setTenloaicon("Tất Cả"); // Gán tên cho loaicon "Tất Cả"
+                loaiConSanPhamList.add(tatCaLoaiCon); // Thêm loaicon "Tất Cả" vào danh sách loaicon
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String idLoaiCon = snapshot.getKey();
+                    String tenLoaiCon = snapshot.getValue(String.class);
+                    loaicon loaiCon = new loaicon();
+                    loaiCon.setIdloaicon(Integer.parseInt(idLoaiCon));
+                    loaiCon.setTenloaicon(tenLoaiCon);
+                    loaiConSanPhamList.add(loaiCon);
+                }
+                // Tạo adapter mới từ danh sách loaicon đã tải
+                LoaiConSpinnerAdapter adapter = new LoaiConSpinnerAdapter(htspact.this, loaiConSanPhamList);
+                // Đặt adapter cho spinnerLoaiConSanPham
+                spinnerLoaiConSanPham.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi truy vấn bị hủy bỏ
+            }
+        });
+    }
+
+
+
+
+
 
     private void loadSanPhamTheoIdLoaiCon(Integer idloaiCon) {
         String idLoaiCon = idloaiCon.toString();
         DatabaseReference sanPhamRef = FirebaseDatabase.getInstance().getReference().child("sanpham");
-        Query query = sanPhamRef.orderByChild("idloaicon").equalTo(idLoaiCon);
+        Query query = sanPhamRef.orderByChild("loaicon").equalTo(idLoaiCon);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -291,5 +339,6 @@ public class htspact extends AppCompatActivity {
             }
         });
     }
+
 }
 

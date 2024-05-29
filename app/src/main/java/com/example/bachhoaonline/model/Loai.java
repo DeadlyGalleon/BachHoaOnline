@@ -1,9 +1,20 @@
 package com.example.bachhoaonline.model;
 
+import java.util.List;
+
 public class Loai {
     private String idloai;
     private String tenloai;
     private String hinhanh;
+    private List<loaicon> listloaicon;
+
+    public List<loaicon> getListloaicon() {
+        return listloaicon;
+    }
+
+    public void setListloaicon(List<loaicon> listloaicon) {
+        this.listloaicon = listloaicon;
+    }
 
     public Loai(String idloai, String tenloai, String hinhanh) {
         this.idloai = idloai;

@@ -6,6 +6,9 @@ public class loaicon {
     private String tenloaicon;
     private String hinhanhloaicon;
 
+    public loaicon() {
+    }
+
     public loaicon(Integer idloaicha, Integer idloaicon, String tenloaicon) {
         this.idloaicha = idloaicha;
         this.idloaicon = idloaicon;

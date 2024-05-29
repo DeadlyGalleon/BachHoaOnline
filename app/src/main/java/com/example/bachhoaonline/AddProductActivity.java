@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,8 +21,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bachhoaonline.R;
+import com.example.bachhoaonline.adapter.LoaiConSpinnerAdapter;
 import com.example.bachhoaonline.adapter.LoaiSpinnerAdapter;
 import com.example.bachhoaonline.model.Loai;
+import com.example.bachhoaonline.model.loaicon;
 import com.example.bachhoaonline.model.sanpham;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -78,23 +81,54 @@ public class AddProductActivity extends AppCompatActivity {
                     String key = snapshot.getKey();
                     String tenLoai = snapshot.child("tenloai").getValue(String.class);
 
+                    // Load danh sách loại con
+                    List<loaicon> loaiConList = new ArrayList<>();
+                    for (DataSnapshot loaiSnapshot : snapshot.child("loaicon").getChildren()) {
+                        String idLoaiCon = loaiSnapshot.getKey();
+                        String tenLoaiCon = loaiSnapshot.getValue(String.class);
+                        loaicon loaiCon = new loaicon();
+                        loaiCon.setIdloaicon(Integer.parseInt(idLoaiCon));
+                        loaiCon.setTenloaicon(tenLoaiCon);
+                        loaiConList.add(loaiCon);
+                    }
+
                     Loai loai = new Loai();
                     loai.setIdloai(key);
                     loai.setTenloai(tenLoai);
+                    loai.setListloaicon(loaiConList); // Gán danh sách loại con cho mỗi loại
 
                     loaiList.add(loai);
                 }
 
+                // Hiển thị danh sách loại trong spinnerLoai
                 LoaiSpinnerAdapter loaiAdapter = new LoaiSpinnerAdapter(AddProductActivity.this, loaiList);
                 spinnerLoai.setAdapter(loaiAdapter);
+
+                // Hiển thị loại con tương ứng với loại được chọn trong spinnerLoai
+                spinnerLoai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Loai selectedLoai = (Loai) parent.getSelectedItem();
+                        List<loaicon> loaiConList = selectedLoai.getListloaicon();
+
+                        // Hiển thị danh sách loại con trong spinnerLoaiCon
+                        LoaiConSpinnerAdapter loaiConAdapter = new LoaiConSpinnerAdapter(AddProductActivity.this, loaiConList);
+                        spinnerLoaiCon.setAdapter(loaiConAdapter);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle errors
+                // Xử lý lỗi nếu cần
             }
         });
     }
+
 
     @SuppressLint("WrongViewCast")
     public void AnhXa() {
@@ -238,6 +272,17 @@ public class AddProductActivity extends AppCompatActivity {
         // Create a new product object and set its properties
         sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), Integer.parseInt (((Loai) spinnerLoai.getSelectedItem()).getIdloai()), imageUrl);
         sanPham.setMota(textmota.getText().toString());
+
+        // Kiểm tra xem loại có loại con nào không
+        if (((Loai) spinnerLoai.getSelectedItem()).getListloaicon().isEmpty()) {
+            // Nếu không có loại con, đặt giá trị loaicon thành 0
+            sanPham.setLoaicon(0);
+        } else {
+            // Nếu có loại con, đặt giá trị loaicon bằng idloaicon của loại con được chọn
+            int selectedLoaiconId = ((loaicon) spinnerLoaiCon.getSelectedItem()).getIdloaicon();
+            sanPham.setLoaicon(selectedLoaiconId);
+        }
+
         sanPhamRef.setValue(sanPham)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -254,6 +299,7 @@ public class AddProductActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 
 
