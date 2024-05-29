@@ -82,9 +82,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textgiaban"
-            android:hint="Nhập giá sản phẩm"
+            android:hint="Mô Tả"
             android:layout_margin="16dp"
-            android:inputType="numberDecimal"/>
+           />
 
         <!-- ImageView để hiển thị hình ảnh sản phẩm -->
         <ImageView

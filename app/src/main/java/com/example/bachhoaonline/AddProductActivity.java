@@ -182,66 +182,79 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private void themSanPhamVoiKeyMoi(long newKey) {
-        Calendar calendar = Calendar.getInstance();
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("hinhanhsanpham/"); // Đường dẫn của thư mục
-        stringBuilder.append("hinhanh");
-        stringBuilder.append(calendar.getTimeInMillis());
-        stringBuilder.append(".png");
+        // Define the default image URL
+        final String defaultImageUrl = "https://toppng.com/uploads/preview/and-blank-effect-transparent-11546868080xgtiz6hxid.png";
 
-        String imagePath = stringBuilder.toString();
-        StorageReference mountainsRef = storageRef.child(imagePath);
-        hinhanh.setDrawingCacheEnabled(true);
-        hinhanh.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) hinhanh.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] data = baos.toByteArray();
+        // Check if selectedImageBitmap is null
+        if (selectedImageBitmap == null) {
+            // If no image is selected, use the default image URL
+            saveProductWithImageUrl(newKey, defaultImageUrl);
+        } else {
+            // If an image is selected, upload it to Firebase Storage
+            Calendar calendar = Calendar.getInstance();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("hinhanhsanpham/"); // Đường dẫn của thư mục
+            stringBuilder.append("hinhanh");
+            stringBuilder.append(calendar.getTimeInMillis());
+            stringBuilder.append(".png");
 
-        UploadTask uploadTask = mountainsRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // Lấy đường dẫn URL của hình ảnh
-                mountainsRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            String imagePath = stringBuilder.toString();
+            StorageReference mountainsRef = storageRef.child(imagePath);
+            hinhanh.setDrawingCacheEnabled(true);
+            hinhanh.buildDrawingCache();
+            Bitmap bitmap = ((BitmapDrawable) hinhanh.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = mountainsRef.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // Get the URL of the uploaded image
+                    mountainsRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageUrl = uri.toString();
+                            // Save the product with the image URL
+                            saveProductWithImageUrl(newKey, imageUrl);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    private void saveProductWithImageUrl(long newKey, String imageUrl) {
+        // Save the product information to Firebase Database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference sanPhamRef = database.getReference("sanpham").child(String.valueOf(newKey));
+
+        // Create a new product object and set its properties
+        sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), Integer.parseInt (((Loai) spinnerLoai.getSelectedItem()).getIdloai()), imageUrl);
+        sanPham.setMota(textmota.getText().toString());
+        sanPhamRef.setValue(sanPham)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(Uri uri) {
-
-                        String imageUrl = uri.toString();
-
-
-                        // Tiến hành lưu thông tin sản phẩm vào cơ sở dữ liệu Firebase
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference sanPhamRef = database.getReference("sanpham").child(String.valueOf(newKey));
-
-                        // Tạo đối tượng sanPham với key mới và thêm vào cơ sở dữ liệu
-                        sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), Integer.parseInt (((Loai) spinnerLoai.getSelectedItem()).getIdloai()), imageUrl);
-                        sanPham.setMota(textmota.getText().toString());
-                        sanPhamRef.setValue(sanPham)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                                        // Xử lý thành công, có thể thực hiện các hành động khác ở đây nếu cần
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(AddProductActivity.this,  e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        // Xử lý khi thêm sản phẩm thất bại
-                                    }
-                                });
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                        // Handle success, perform any additional actions if needed
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddProductActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        // Handle failure, perform any additional actions if needed
                     }
                 });
-            }
-        });
     }
+
 
 
 
