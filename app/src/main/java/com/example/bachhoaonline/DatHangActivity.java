@@ -60,7 +60,7 @@ public class DatHangActivity extends AppCompatActivity {
         String idtaikhoan = sharedPreferences.getString("idtaikhoan", "");
 
         if (!idtaikhoan.isEmpty()) {
-            DatabaseReference donHangRef = FirebaseDatabase.getInstance().getReference("donhang").child(idtaikhoan);
+            DatabaseReference donHangRef = FirebaseDatabase.getInstance().getReference("donhang");
 
             donHangRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -120,6 +120,7 @@ public class DatHangActivity extends AppCompatActivity {
             Toast.makeText(DatHangActivity.this, "Please log in!", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void clearCart(String idtaikhoan) {
         DatabaseReference gioHangRef = FirebaseDatabase.getInstance().getReference("giohang").child(idtaikhoan);

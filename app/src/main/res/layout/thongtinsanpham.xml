@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3FAAAA"
+    android:background="@color/white"
     tools:context=".Chitietsp">
 
     <!-- Hình ảnh sản phẩm chiếm 80% chiều rộng -->
@@ -30,7 +30,7 @@
         android:text="Tên sản phẩm"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:background="#3FAAAA"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewProduct" />
@@ -49,15 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewProductName" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:rating="0"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@id/textViewPrice"
-        app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
+
 
     <!-- Nút thêm vào giỏ hàng -->
 

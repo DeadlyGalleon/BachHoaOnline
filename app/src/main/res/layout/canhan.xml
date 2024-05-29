@@ -15,6 +15,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <Button
+        android:id="@+id/btntoqldh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trang Quản Lý"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+ android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/loginButton"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navdanhsachsanpham"
         android:layout_width="0dp"

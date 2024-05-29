@@ -6,12 +6,26 @@ public class sanpham {
     private  Long giaban;
     private Integer loai;
     private String hinhanh;
+    private String mota;
+
+
+
     public sanpham(String idsanpham, String tensanpham, Long giaban, Integer loai, String hinhanh) {
         this.idsanpham = idsanpham;
         this.tensanpham = tensanpham;
         this.giaban = giaban;
         this.loai = loai;
         this.hinhanh = hinhanh;
+    }
+    public String getMota() {
+        return mota;
+    }
+
+    public void setMota(String mota) {
+        this.mota = mota;
+    }
+
+    public sanpham() {
     }
 
     public Integer getLoai() {

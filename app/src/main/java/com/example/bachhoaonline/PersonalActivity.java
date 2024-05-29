@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class PersonalActivity extends AppCompatActivity {
     Button dangnhap;
     Button dangxuat;
     Button donhang;
+    Button trangquanly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,25 @@ public class PersonalActivity extends AppCompatActivity {
         // Check login state
         SharedPreferences sharedPreferences = getSharedPreferences("taikhoan", Context.MODE_PRIVATE);
         String isLoggedIn = sharedPreferences.getString("idtaikhoan", "");
+        String quanly=sharedPreferences.getString("quanly", "");
+        Log.d("abcd",quanly);
         if (isLoggedIn.length()>0) {
             // User is logged in, hide login button and show logout button
+            if(quanly.equals("1")){
             dangnhap.setVisibility(View.GONE);
             dangxuat.setVisibility(View.VISIBLE);
-            donhang.setVisibility(View.VISIBLE);
+trangquanly.setVisibility(View.VISIBLE);
+            }
+
+            else{
+                dangnhap.setVisibility(View.GONE);
+                dangxuat.setVisibility(View.VISIBLE);
+                donhang.setVisibility(View.VISIBLE);
+
+            }
+
+
+
         } else {
             // User is not logged in, hide logout button and show login button
             dangnhap.setVisibility(View.VISIBLE);
@@ -80,6 +96,7 @@ public class PersonalActivity extends AppCompatActivity {
                 dangxuat.setVisibility(View.GONE);
                 dangnhap.setVisibility(View.VISIBLE);
                 donhang.setVisibility(View.GONE);
+                trangquanly.setVisibility(View.GONE);
                 Toast.makeText(PersonalActivity.this, "Đăng Xuất Thành Công!", Toast.LENGTH_SHORT).show();
 
             }
@@ -88,9 +105,14 @@ public class PersonalActivity extends AppCompatActivity {
     }
 
     public void anhxa(){
+
+
         dangnhap=findViewById(R.id.loginButton);
         dangxuat=findViewById(R.id.logoutButton);
         donhang=findViewById(R.id.manh);
+        trangquanly=findViewById(R.id.trangquanly);
+
+
     }
 
     public void Control(){

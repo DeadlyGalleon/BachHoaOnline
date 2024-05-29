@@ -217,6 +217,11 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
                 newTaikhoan.setTentaikhoan(tentaikhoan);
                 newTaikhoan.setMatkhau(matkhau);
                 newTaikhoan.setSodienthoai(sodienthoai);
+int a=0;
+                newTaikhoan.setLaquanly(a);
+
+
+
 
                 // Tạo key mới từ số lớn nhất tăng thêm 1
                 String newKey = String.valueOf(newId);

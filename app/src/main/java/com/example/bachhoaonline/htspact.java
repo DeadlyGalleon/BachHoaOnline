@@ -200,31 +200,7 @@ public class htspact extends AppCompatActivity {
 
 
 
-//    private void loadLoaiConSanPham(String idLoai) {
-//        DatabaseReference loaiConSanPhamRef = FirebaseDatabase.getInstance().getReference().child("loaicon");
-//        Query query = loaiConSanPhamRef.orderByChild("idloai").equalTo(idLoai);
-//        query.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                loaiConSanPhamList.clear();
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    String idLoaiCon = snapshot.getKey();
-//                    idLoaiCon=idLoaiCon.toString();
-//                    Integer idLoai = snapshot.child("idloai").getValue(Integer.class);
-//                    String tenLoaiCon = snapshot.child("tenloaicon").getValue(String.class);
-//                    loaicon loaiConSanPham = new loaicon();
-//                    loaiConSanPhamList.add(loaiConSanPham);
-//                }
-//                LoaiConAdapter adapter = new LoaiConAdapter(htspact.this, loaiConSanPhamList);
-//                spinnerLoaiConSanPham.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Xử lý khi truy vấn bị hủy bỏ
-//            }
-//        });
-//    }
+
 
     private void loadSanPhamData() {
         databaseRef.addValueEventListener(new ValueEventListener() {
@@ -236,7 +212,7 @@ public class htspact extends AppCompatActivity {
                     String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
                     Long giaBan = snapshot.child("giaban").getValue(Long.class);
                     String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
-                    Integer idloai=snapshot.child("idloai").getValue(Integer.class);
+                    String idloai=snapshot.child("loai").getValue(String.class);
                     sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
                     sanPhamList.add(sanPham);
                 }

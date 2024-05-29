@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Spinner
+        android:id="@+id/spinnerloai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/texttensanpham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên sản phẩm"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/textgiaban"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giá bán"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Thêm EditText để nhập mô tả sản phẩm -->
+    <EditText
+        android:id="@+id/textmota"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+    android:hint="Mô tả sản phẩm"
+    android:layout_marginBottom="16dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/imageViewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/buttonUpdateProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cập nhật sản phẩm"
+        android:layout_marginBottom="16dp"/>
+
+</LinearLayout>

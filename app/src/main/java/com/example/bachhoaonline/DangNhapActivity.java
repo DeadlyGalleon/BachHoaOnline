@@ -94,6 +94,9 @@ public  void initcontrol(){
                             editor.putString("idtaikhoan", key);
                             editor.putString("tentaikhoan",taikhoan.getTentaikhoan());
                             editor.putString("sodienthoai",taikhoan.getSodienthoai());
+                            String qunly = String.valueOf(taikhoan.getLaquanly());
+
+                            editor.putString("quanly",qunly);
 
                             editor.apply();
 

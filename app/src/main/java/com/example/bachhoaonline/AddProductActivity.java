@@ -48,6 +48,7 @@ public class AddProductActivity extends AppCompatActivity {
     private Spinner spinnerLoaiCon;
     private EditText textTenSanPham;
     private EditText textGiaBan;
+    private EditText textmota;
     private Button buttonAddProduct, btnthemanh;
     private Bitmap selectedImageBitmap;
 
@@ -103,6 +104,7 @@ public class AddProductActivity extends AppCompatActivity {
         textTenSanPham = findViewById(R.id.texttensanpham);
         textGiaBan = findViewById(R.id.textgiaban);
         hinhanh = findViewById(R.id.imageViewProduct);
+        textmota=findViewById(R.id.textmota);
     }
 
     public void Control() {
@@ -209,7 +211,9 @@ public class AddProductActivity extends AppCompatActivity {
                 mountainsRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+
                         String imageUrl = uri.toString();
+
 
                         // Tiến hành lưu thông tin sản phẩm vào cơ sở dữ liệu Firebase
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -217,6 +221,7 @@ public class AddProductActivity extends AppCompatActivity {
 
                         // Tạo đối tượng sanPham với key mới và thêm vào cơ sở dữ liệu
                         sanpham sanPham = new sanpham(String.valueOf(newKey), textTenSanPham.getText().toString(), Long.parseLong(textGiaBan.getText().toString()), Integer.parseInt (((Loai) spinnerLoai.getSelectedItem()).getIdloai()), imageUrl);
+                        sanPham.setMota(textmota.getText().toString());
                         sanPhamRef.setValue(sanPham)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

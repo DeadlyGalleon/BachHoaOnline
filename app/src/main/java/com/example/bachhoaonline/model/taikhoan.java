@@ -24,6 +24,15 @@ public class taikhoan
     private String tentaikhoan;
     private String sodienthoai;
     private String matkhau;
+    private int laquanly;
+
+    public int getLaquanly() {
+        return laquanly;
+    }
+
+    public void setLaquanly(int laquanly) {
+        this.laquanly = laquanly;
+    }
 
     public taikhoan() {
 

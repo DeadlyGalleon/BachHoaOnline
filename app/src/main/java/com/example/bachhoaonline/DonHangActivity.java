@@ -37,7 +37,7 @@ public class DonHangActivity extends AppCompatActivity {
         orderAdapter = new donhangAdapter(orderList);
         rvOrderList.setAdapter(orderAdapter);
 
-        // Giả sử bạn đã có id đơn hàng
+        // Get the user's account ID
         SharedPreferences sharedPreferences = getSharedPreferences("taikhoan", MODE_PRIVATE);
         String idtaikhoan = sharedPreferences.getString("idtaikhoan", "");
 
@@ -45,24 +45,33 @@ public class DonHangActivity extends AppCompatActivity {
     }
 
     private void loadOrderData(String idTaiKhoan) {
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("donhang").child(idTaiKhoan);
-        orderRef.addValueEventListener(new ValueEventListener() {
+
+        DatabaseReference donHangRef = FirebaseDatabase.getInstance().getReference().child("donhang");
+        donHangRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                orderList.clear();
-                for (DataSnapshot donHangSnapshot : snapshot.getChildren()) {
-                    donhang donHang = donHangSnapshot.getValue(donhang.class);
-                    if (donHang != null) {
-                        orderList.add(donHang);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists() && dataSnapshot.hasChildren()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        donhang donHang = snapshot.getValue(donhang.class);
+                        if (donHang != null && idTaiKhoan.equals(donHang.getIdTaiKhoan())) {
+                            orderList.add(donHang);
+                        }
                     }
+
+
+                    orderAdapter.notifyDataSetChanged();
+                } else {
+                    // Handle case where dataSnapshot doesn't have any children
                 }
-                orderAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DonHangActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle potential errors here
             }
         });
+
     }
 }

@@ -6,4 +6,12 @@
     <string name="ttgiohnag">Giỏ Hàng</string>
     <string name="title_canhan">Cá Nhán</string>
 
+
+    <string-array name="order_status_array">
+        <item>Chưa xác nhận</item>
+        <item>Đã hủy</item>
+        <item>Đã xác nhận</item>
+        <item>Đang giao</item>
+        <item>Đã giao</item>
+    </string-array>
 </resources>

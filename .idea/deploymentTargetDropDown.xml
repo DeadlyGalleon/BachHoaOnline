@@ -2,7 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="MainActivity">
+      <entry key="DonHangActivity">
+        <State />
+      </entry>
+      <entry key="QuanLyDonHangActivity">
+        <State />
+      </entry>
+      <entry key="QuanLySanPhamActivity">
         <State />
       </entry>
       <entry key="app">
@@ -18,7 +24,7 @@
               </deviceKey>
             </Target>
           </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-28T04:58:23.249843300Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-05-28T16:29:27.349403400Z" />
         </State>
       </entry>
       <entry key="htspact">
