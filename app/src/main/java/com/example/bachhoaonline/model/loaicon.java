@@ -4,7 +4,7 @@ public class loaicon {
     private Integer idloaicha;
     private Integer idloaicon;
     private String tenloaicon;
-    private String hinhanhloaicon;
+
 
     public loaicon() {
     }
@@ -39,12 +39,6 @@ public class loaicon {
         this.tenloaicon = tenloaicon;
     }
 
-    public String getHinhanhloaicon() {
-        return hinhanhloaicon;
-    }
 
-    public void setHinhanhloaicon(String hinhanhloaicon) {
-        this.hinhanhloaicon = hinhanhloaicon;
-    }
 }
 

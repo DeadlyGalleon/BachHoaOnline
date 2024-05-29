@@ -101,10 +101,11 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                         String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
                         Long giaBan = snapshot.child("giaban").getValue(Long.class);
                         String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
-                        String Loai = snapshot.child("loai").getValue(String.class);
+                        Integer idloai = snapshot.child("loai").getValue(Integer.class);
 
-                        if (idString != null && tenSanPham != null && giaBan != null && Loai != null) {
-                            sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, Integer.valueOf(Loai), hinhAnh);
+
+                        if (idString != null && tenSanPham != null && giaBan != null ) {
+                            sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, idloai, hinhAnh);
                             sanPhamList.add(sanPham);
                             if (hinhAnh != null) {
                                 Log.d("Firebase URL", hinhAnh);
@@ -120,10 +121,6 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                 quanlisanphamAdapter = new quanlysanphamAdapter(QuanLySanPhamActivity.this, sanPhamList);
                 sanphamListView.setAdapter(quanlisanphamAdapter);
                 quanlisanphamAdapter.setOnItemClickListener(new quanlysanphamAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-
-                    }
 
                     @Override
                     public void onEditClick(int position) {
@@ -133,7 +130,6 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                         intent.putExtra("imageUrl", clickedItem.getHinhanh());
                         startActivity(intent);
                     }
-
                     @Override
                     public void onDeleteClick(int position) {
                         sanpham clickedItem = sanPhamList.get(position);
@@ -146,6 +142,7 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                             }
                         });
                     }
+
                 });
                 // Set up SearchView
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

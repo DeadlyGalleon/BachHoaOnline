@@ -31,7 +31,6 @@ public class SuaSanPhamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_sanpham);
-        Log.d("sss", "loiii");
 
         // Ánh xạ các view
         textTenSanPham = findViewById(R.id.texttensanpham);
@@ -72,7 +71,7 @@ public class SuaSanPhamActivity extends AppCompatActivity {
                 String newImageUrl = selectedImageUri.toString();
                 // Cập nhật imageUrl với ảnh mới
                 imageUrl = newImageUrl;
-// Load và hiển thị hình ảnh mới lên ImageView
+                // Load và hiển thị hình ảnh mới lên ImageView
                 loadImageFromUrl(newImageUrl);
             } catch (Exception e) {
                 e.printStackTrace();

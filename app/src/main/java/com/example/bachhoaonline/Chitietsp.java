@@ -28,12 +28,100 @@ public class Chitietsp extends AppCompatActivity {
     Long giaBan;
     String loaiSanPham;
     String hinhAnh;
+    String mota;
     private DatabaseReference databaseRef;
     private ValueEventListener valueEventListener; // Di chuyển khai báo ra khỏi phương thức onCreate
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.thongtinsanpham);
+      Control();
+        String productId="chua co id";
+
+        // Lấy ID sản phẩm từ Intent
+         productId = getIntent().getStringExtra("idString");
+
+        Toast.makeText(this, productId, Toast.LENGTH_SHORT).show();
+
+        // Kiểm tra xem ID có tồn tại hay không
+        if (productId != null) {
+            // In ra Log để kiểm tra xem ID đã được lấy thành công hay không
+            Log.d("Product ID", productId);
+
+            // Thực hiện truy vấn để lấy thông tin chi tiết của sản phẩm từ cơ sở dữ liệu
+            databaseRef = FirebaseDatabase.getInstance().getReference("sanpham").child(productId);
+            valueEventListener = new ValueEventListener() { // Di chuyển khai báo vào đây
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Xử lý dữ liệu
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Xử lý khi truy vấn bị hủy bỏ
+                }
+            };
+
+            databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        // Lấy thông tin sản phẩm từ DataSnapshot
+                         tenSanPham = dataSnapshot.child("tensanpham").getValue(String.class);
+                        Log.d("sssss",tenSanPham);
+                         giaBan = dataSnapshot.child("giaban").getValue(Long.class);
+                        Log.d("sssss",giaBan.toString());
+
+                         hinhAnh = dataSnapshot.child("hinhanh").getValue(String.class);
+                        Log.d("sssss",tenSanPham);
+                         mota=dataSnapshot.child("mota").getValue(String.class);
+                        Log.d("sssss",tenSanPham);
+
+                        // Hiển thị thông tin sản phẩm lên giao diện
+                        StringBuilder stringBuilder = new StringBuilder();
+
+                        // Hiển thị thông tin sản phẩm lên giao diện
+                        TextView tenSanPhamTextView = findViewById(R.id.textViewProductName);
+                        stringBuilder.setLength(0);
+                        stringBuilder.append("Tên sản phẩm: ").append(tenSanPham);
+                        tenSanPhamTextView.setText(stringBuilder.toString());
+
+                        TextView giaBanTextView = findViewById(R.id.textViewPrice);
+                        stringBuilder.setLength(0);
+                        stringBuilder.append("Giá bán: ").append(giaBan).append(" VND");
+                        giaBanTextView.setText(stringBuilder.toString());
+                        TextView motatv=findViewById(R.id.textviewmota);
+                        motatv.setText(mota);
+
+//                        TextView loaiSanPhamTextView = findViewById(R.id.loaiSanPhamTextView);
+//                        stringBuilder.setLength(0);
+//                        stringBuilder.append("Loại sản phẩm: ").append(loaiSanPham);
+//                        loaiSanPhamTextView.setText(stringBuilder.toString());
+
+                        ImageView productImageView = findViewById(R.id.imageViewProduct);
+                        Glide.with(Chitietsp.this)
+                                .load(hinhAnh)
+                                .fitCenter()
+                                .into(productImageView);
+
+                        // Load image into ImageView using Glide
+
+                    } else {
+                        // Xử lý khi không tìm thấy sản phẩm với ID tương ứng
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Xử lý khi truy vấn bị hủy bỏ
+                }
+            });
+        }
+    }
+
+    private void Control() {
         Button themVaoGioHangButton = findViewById(R.id.buttonAddToCart);
         themVaoGioHangButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,81 +182,6 @@ public class Chitietsp extends AppCompatActivity {
 
 
         });
-        String productId="chua co id";
-
-        // Lấy ID sản phẩm từ Intent
-         productId = getIntent().getStringExtra("idString");
-
-        Toast.makeText(this, productId, Toast.LENGTH_SHORT).show();
-
-        // Kiểm tra xem ID có tồn tại hay không
-        if (productId != null) {
-            // In ra Log để kiểm tra xem ID đã được lấy thành công hay không
-            Log.d("Product ID", productId);
-
-            // Thực hiện truy vấn để lấy thông tin chi tiết của sản phẩm từ cơ sở dữ liệu
-            databaseRef = FirebaseDatabase.getInstance().getReference("sanpham").child(productId);
-            valueEventListener = new ValueEventListener() { // Di chuyển khai báo vào đây
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // Xử lý dữ liệu
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Xử lý khi truy vấn bị hủy bỏ
-                }
-            };
-
-            databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // Lấy thông tin sản phẩm từ DataSnapshot
-                         tenSanPham = dataSnapshot.child("tensanpham").getValue(String.class);
-                         giaBan = dataSnapshot.child("giaban").getValue(Long.class);
-                         loaiSanPham = dataSnapshot.child("loai").getValue(String.class);
-                         hinhAnh = dataSnapshot.child("hinhanh").getValue(String.class);
-
-                        // Hiển thị thông tin sản phẩm lên giao diện
-                        StringBuilder stringBuilder = new StringBuilder();
-
-                        // Hiển thị thông tin sản phẩm lên giao diện
-                        TextView tenSanPhamTextView = findViewById(R.id.textViewProductName);
-                        stringBuilder.setLength(0);
-                        stringBuilder.append("Tên sản phẩm: ").append(tenSanPham);
-                        tenSanPhamTextView.setText(stringBuilder.toString());
-
-                        TextView giaBanTextView = findViewById(R.id.textViewPrice);
-                        stringBuilder.setLength(0);
-                        stringBuilder.append("Giá bán: ").append(giaBan).append(" VND");
-                        giaBanTextView.setText(stringBuilder.toString());
-
-//                        TextView loaiSanPhamTextView = findViewById(R.id.loaiSanPhamTextView);
-//                        stringBuilder.setLength(0);
-//                        stringBuilder.append("Loại sản phẩm: ").append(loaiSanPham);
-//                        loaiSanPhamTextView.setText(stringBuilder.toString());
-
-                        ImageView productImageView = findViewById(R.id.imageViewProduct);
-                        Glide.with(Chitietsp.this)
-                                .load(hinhAnh)
-                                .fitCenter()
-                                .into(productImageView);
-
-                        // Load image into ImageView using Glide
-
-                    } else {
-                        // Xử lý khi không tìm thấy sản phẩm với ID tương ứng
-                    }
-                }
-
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Xử lý khi truy vấn bị hủy bỏ
-                }
-            });
-        }
     }
 
     @Override

@@ -110,10 +110,13 @@ public class htspact extends AppCompatActivity {
         spinnerLoaiConSanPham.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                Loai selectedLoai = loaiSanPhamList.get(position);
-                loaicon selectedLoaiCon = loaiConSanPhamList.get(position);
-                loadSanPhamTheoIdLoaiCon(selectedLoai.getIdloai(),selectedLoaiCon.getIdloaicon().toString());
+                Loai selectedLoai = (Loai) spinnerLoaiSanPham.getSelectedItem(); // Lấy loại được chọn từ spinnerLoaiSanPham
+                Log.d("aaaa",  selectedLoai.getIdloai());
 
+                loaicon selectedLoaiCon = loaiConSanPhamList.get(position);
+                Log.d("aaaa",  selectedLoaiCon.getIdloaicon().toString());
+
+                loadSanPhamTheoIdLoaiCon(selectedLoai.getIdloai(), selectedLoaiCon.getIdloaicon().toString());
             }
 
             @Override
@@ -121,6 +124,7 @@ public class htspact extends AppCompatActivity {
                 // Xử lý khi không có mục nào được chọn
             }
         });
+
     }
 
     private void AnhXa() {
@@ -308,13 +312,17 @@ public class htspact extends AppCompatActivity {
 
 
     private void loadSanPhamTheoIdLoaiCon(String idloai,String idLoaiCon) {
-        if (idLoaiCon.equals("0") ||idLoaiCon.isEmpty()) {
+        Log.d("idloaicon",idloai);
+        Log.d("idloaicon",idLoaiCon);
+
+        if (idLoaiCon.equals("0") || idLoaiCon.isEmpty()) {
             loadSanPhamTheoIdLoai(idloai);
             return;
         } else {
 
+
             DatabaseReference sanPhamRef = FirebaseDatabase.getInstance().getReference().child("sanpham");
-            Query query = sanPhamRef.orderByChild("loai").equalTo(Integer.parseInt(idLoaiCon));
+            Query query = sanPhamRef.orderByChild("loai").equalTo(Integer.parseInt(idloai));
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -325,7 +333,10 @@ public class htspact extends AppCompatActivity {
                         Long giaBan = snapshot.child("giaban").getValue(Long.class);
                         String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
                         sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
-                        sanPhamList.add(sanPham);
+                        int loaicon=snapshot.child("loaicon").getValue(Integer.class);
+                        if(loaicon==Integer.parseInt(idLoaiCon)) {
+                            sanPhamList.add(sanPham);
+                        }
                     }
 
                     sanphamadapter sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
@@ -339,6 +350,7 @@ public class htspact extends AppCompatActivity {
                         }
                     });
                     sanphamListView.setAdapter(sanphamAdapter);
+
                 }
 
                 @Override

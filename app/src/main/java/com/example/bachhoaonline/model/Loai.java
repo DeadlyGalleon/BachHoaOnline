@@ -1,5 +1,6 @@
 package com.example.bachhoaonline.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Loai {
@@ -7,6 +8,9 @@ public class Loai {
     private String tenloai;
     private String hinhanh;
     private List<loaicon> listloaicon;
+
+    public Loai(String id, String tenLoai, ArrayList<loaicon> loaicons) {
+    }
 
     public List<loaicon> getListloaicon() {
         return listloaicon;

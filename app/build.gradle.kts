@@ -75,6 +75,8 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.recyclerview)
+    implementation(libs.firebase.auth)
+    implementation(libs.cardview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     // Import the BoM for the Firebase platform
@@ -95,6 +97,7 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
 
     implementation ("com.squareup.picasso:picasso:2.71828")
+
 
 
 }
