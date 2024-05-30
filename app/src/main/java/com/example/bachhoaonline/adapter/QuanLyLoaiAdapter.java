@@ -80,6 +80,7 @@ public class QuanLyLoaiAdapter extends ArrayAdapter<Loai> {
         return convertView;
     }
 
+
     private void showAddLLoaiConDialog(String loaiId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Thêm Loại Con");

@@ -10,12 +10,22 @@ public class sanpham {
     private String hinhanh;
     private String mota;
 
+
     public Integer getLoaicon() {
         return loaicon;
     }
 
     public void setLoaicon(Integer loaicon) {
         this.loaicon = loaicon;
+    }
+    public sanpham(String idsanpham, String tensanpham, Long giaban,Integer loai, String hinhanh,  String mota) {
+        this.idsanpham = idsanpham;
+        this.tensanpham = tensanpham;
+        this.giaban = giaban;
+        this.hinhanh = hinhanh;
+        this.loai=loai;
+        this.mota=mota;
+
     }
 
     public sanpham(String idsanpham, String tensanpham, Long giaban, Integer loai, String hinhanh) {

@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 
 public class SuaSanPhamActivity extends AppCompatActivity {
 
-    private EditText textTenSanPham, textGiaBan;
+    private EditText textTenSanPham, textGiaBan, textMoTa;
     private ImageView imageViewProduct;
     private Button buttonUpdateProduct, buttonDeleteProduct;
     int REQUEST_CODE_IMAGE = 1;
@@ -35,14 +35,21 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         // Ánh xạ các view
         textTenSanPham = findViewById(R.id.texttensanpham);
         textGiaBan = findViewById(R.id.textgiaban);
+        textMoTa = findViewById(R.id.textmota);
         imageViewProduct = findViewById(R.id.imageViewProduct);
         buttonUpdateProduct = findViewById(R.id.buttonUpdateProduct);
+//        buttonDeleteProduct = findViewById(R.id.buttonDeleteProduct);
 
 
-        // Lấy URL hình ảnh từ Intent
+        String tenSanPham = getIntent().getStringExtra("tensanpham");
+        String moTa = getIntent().getStringExtra("mota");
+        long giaBan = getIntent().getLongExtra("giaban", 0);
         imageUrl = getIntent().getStringExtra("imageUrl");
 
         // Load hình ảnh từ URL và hiển thị lên ImageView
+        textTenSanPham.setText(tenSanPham);
+        textMoTa.setText(moTa);
+        textGiaBan.setText(String.valueOf(giaBan));
         loadImageFromUrl(imageUrl);
 
         imageViewProduct.setOnClickListener(new View.OnClickListener() {
@@ -84,11 +91,13 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         String idSanPham = getIntent().getStringExtra("idString");
         String tenSanPham = textTenSanPham.getText().toString().trim();
         Long giaBan = Long.parseLong(textGiaBan.getText().toString().trim());
+        String moTa = textMoTa.getText().toString().trim();
 
         // Cập nhật thông tin sản phẩm trong Firebase
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference().child("sanpham").child(idSanPham);
         productRef.child("tensanpham").setValue(tenSanPham);
         productRef.child("giaban").setValue(giaBan);
+        productRef.child("mota").setValue(moTa);
         productRef.child("hinhanh").setValue(imageUrl); // Sử dụng imageUrl ở đây
 
         // Hiển thị thông báo thành công

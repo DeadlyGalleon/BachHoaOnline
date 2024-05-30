@@ -49,30 +49,7 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
     }
 
     private void Control() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navbottomtrangchu);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.navigation_home) {
-                    Intent intentDanhSachSanPham = new Intent(QuanLySanPhamActivity.this, MainActivity.class);
-                    startActivity(intentDanhSachSanPham);
-                    return true;
-                } else if (item.getItemId() == R.id.navdanhsachsanpham) {
-                    Intent intentDanhSachSanPham = new Intent(QuanLySanPhamActivity.this, htspact.class);
-                    startActivity(intentDanhSachSanPham);
-                    return true;
-                } else if (item.getItemId() == R.id.navgiohang) {
-                    Intent intentGiohang = new Intent(QuanLySanPhamActivity.this, GioHangActivity.class);
-                    startActivity(intentGiohang);
-                    return true;
-                } else if (item.getItemId() == R.id.navcanhan) {
-                    Intent intentCaNhan = new Intent(QuanLySanPhamActivity.this, PersonalActivity.class);
-                    startActivity(intentCaNhan);
-                    return true;
-                }
-                return false;
-            }
-        });
+
 
         Button buttonAddProduct = findViewById(R.id.buttonAddProduct);
         buttonAddProduct.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +79,12 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                         Long giaBan = snapshot.child("giaban").getValue(Long.class);
                         String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
                         Integer idloai = snapshot.child("loai").getValue(Integer.class);
+                        String moTa = snapshot.child("mota").getValue(String.class);
+                        Log.d("aaaa",String.valueOf(idloai));
 
 
                         if (idString != null && tenSanPham != null && giaBan != null ) {
-                            sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, idloai, hinhAnh);
+                            sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, idloai, hinhAnh, moTa);
                             sanPhamList.add(sanPham);
                             if (hinhAnh != null) {
                                 Log.d("Firebase URL", hinhAnh);
@@ -128,6 +107,10 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                         Intent intent = new Intent(QuanLySanPhamActivity.this, SuaSanPhamActivity.class);
                         intent.putExtra("idString", clickedItem.getIdsanpham());
                         intent.putExtra("imageUrl", clickedItem.getHinhanh());
+                        intent.putExtra("tensanpham", clickedItem.getTensanpham());
+                        intent.putExtra("giaban", clickedItem.getGiaban());
+//                        intent.putExtra("mota", clickedItem.getMota());
+//                        intent.putExtra("loai", clickedItem.getGiaban());
                         startActivity(intent);
                     }
                     @Override

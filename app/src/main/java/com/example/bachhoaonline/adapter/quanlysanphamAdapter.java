@@ -47,6 +47,7 @@ public class quanlysanphamAdapter extends ArrayAdapter<sanpham> {
             viewHolder.tenTextView = view.findViewById(R.id.tenTextView);
             viewHolder.giaTextView = view.findViewById(R.id.giaTextView);
             viewHolder.loaiTextView = view.findViewById(R.id.idloaiTextView);
+            viewHolder.moTaTextView = view.findViewById(R.id.moTaTextView);
             viewHolder.imageView = view.findViewById(R.id.imageView);
             viewHolder.buttonEdit = view.findViewById(R.id.buttonEdit);
             viewHolder.buttonDelete = view.findViewById(R.id.buttonDelete);
@@ -59,7 +60,7 @@ public class quanlysanphamAdapter extends ArrayAdapter<sanpham> {
         sanpham sanPham = sanPhamList.get(position);
         viewHolder.tenTextView.setText(sanPham.getTensanpham());
         viewHolder.giaTextView.setText(String.format("%d VND", sanPham.getGiaban()));
-        viewHolder.loaiTextView.setText(String.format("ID Loại: %d", sanPham.getLoai()));
+        viewHolder.moTaTextView.setText(sanPham.getMota());
         Picasso.get().load(sanPham.getHinhanh()).fit().into(viewHolder.imageView);
 
         final int pos = position;
@@ -71,7 +72,6 @@ public class quanlysanphamAdapter extends ArrayAdapter<sanpham> {
                 }
             }
         });
-
         viewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +104,7 @@ public class quanlysanphamAdapter extends ArrayAdapter<sanpham> {
     private static class ViewHolder {
         TextView tenTextView;
         TextView giaTextView;
-
+        TextView moTaTextView;
         TextView loaiTextView;
         ImageView imageView;
         Button buttonEdit;
