@@ -104,7 +104,7 @@ public  void initcontrol(){
 
 
                             // Đăng nhập thành công
-                            Toast.makeText(getApplicationContext(), idtaikhoan, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Đăng Nhập Thành Công!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(DangNhapActivity.this, MainActivity.class);
                             startActivity(intent);
                             return;

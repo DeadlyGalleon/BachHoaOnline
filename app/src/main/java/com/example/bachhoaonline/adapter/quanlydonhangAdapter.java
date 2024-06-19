@@ -1,5 +1,6 @@
 package com.example.bachhoaonline.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bachhoaonline.httkact;
 import com.example.bachhoaonline.model.donhang;
+import com.example.bachhoaonline.model.taikhoan;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +34,10 @@ import java.util.Locale;
 public class quanlydonhangAdapter extends RecyclerView.Adapter<quanlydonhangAdapter.OrderViewHolder> {
 
     private List<donhang> orderList;
+    private DatabaseReference databaseRef;
+    List<taikhoan> taiKhoanList = new ArrayList<>();
+
+
 
     public quanlydonhangAdapter(List<donhang> orderList) {
         this.orderList = orderList;
@@ -35,12 +46,37 @@ public class quanlydonhangAdapter extends RecyclerView.Adapter<quanlydonhangAdap
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.quanlydonhang_item, parent, false);
         return new OrderViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
+
+        databaseRef = FirebaseDatabase.getInstance().getReference("taikhoan");
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String idString = snapshot.getKey(); // Lấy giá trị id dưới dạng chuỗi từ key của snapshot
+                    String tenTaiKhoan = snapshot.child("tentaikhoan").getValue(String.class);
+                    String soDienThoai = snapshot.child("sodienthoai").getValue(String.class);
+                    String matKhau = snapshot.child("matkhau").getValue(String.class);
+                    int id = Integer.parseInt(idString); // Chuyển đổi id từ chuỗi sang số nguyên
+                    taikhoan taiKhoan = new taikhoan(id, tenTaiKhoan, soDienThoai, matKhau);
+                    taiKhoanList.add(taiKhoan);
+                }
+                // Truyền giá trị boolean vào Adapter khi tạo Adapter
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi truy vấn bị hủy bỏ
+            }
+        });
+
         donhang order = orderList.get(position);
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -48,6 +84,18 @@ public class quanlydonhangAdapter extends RecyclerView.Adapter<quanlydonhangAdap
         stringBuilder.append("ID Đơn hàng: ").append(order.getIdDonHang());
         holder.orderId.setText(stringBuilder.toString());
         stringBuilder.setLength(0);
+
+        String ttk="";
+
+
+        for(taikhoan tk :taiKhoanList){
+            if(order.getIdTaiKhoan().equals(String.valueOf(tk.getIdtaikhoan())))  ttk=tk.getTentaikhoan();
+            Log.d("taikhoan", String.valueOf(tk.getTentaikhoan()));
+        }
+        stringBuilder.append("Đặt bởi: ").append(ttk);
+        holder.orrderuser.setText(stringBuilder.toString());
+        stringBuilder.setLength(0);
+
 
         // Ngày đặt
         stringBuilder.append("Ngày đặt: ").append(order.getNgaydat());
@@ -76,6 +124,11 @@ public class quanlydonhangAdapter extends RecyclerView.Adapter<quanlydonhangAdap
         stringBuilder.append("Tổng tiền: ").append(String.format("%,.0f VNĐ", order.getTongTien()));
         holder.orderTotal.setText(stringBuilder.toString());
         stringBuilder.setLength(0);
+        stringBuilder.append("Địa Chỉ: ").append(order.getDiaChi());
+        holder.orderAddress.setText(stringBuilder.toString());
+        stringBuilder.setLength(0);
+
+
 
         // Xử lý sự kiện khi người dùng nhấn nút "Xác nhận"
         Button btnConfirm = holder.itemView.findViewById(R.id.btn_confirm);
@@ -140,7 +193,7 @@ public class quanlydonhangAdapter extends RecyclerView.Adapter<quanlydonhangAdap
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView orderId, orderDate, deliveryDate, orderStatus, orderTotal;
+        TextView orderId, orderDate, deliveryDate, orderStatus, orderTotal,orderAddress,orrderuser;
         RecyclerView productList;
 
         public OrderViewHolder(@NonNull View itemView) {
@@ -151,6 +204,8 @@ public class quanlydonhangAdapter extends RecyclerView.Adapter<quanlydonhangAdap
             orderStatus = itemView.findViewById(R.id.tv_order_status);
             orderTotal = itemView.findViewById(R.id.tv_order_total);
             productList = itemView.findViewById(R.id.rv_product_list);
+            orderAddress=itemView.findViewById(R.id.tv_order_address);
+            orrderuser=itemView.findViewById(R.id.tv_order_user);
         }
     }
 }

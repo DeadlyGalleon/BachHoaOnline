@@ -41,7 +41,7 @@ public class Chitietsp extends AppCompatActivity {
         // Lấy ID sản phẩm từ Intent
          productId = getIntent().getStringExtra("idString");
 
-        Toast.makeText(this, productId, Toast.LENGTH_SHORT).show();
+
 
         // Kiểm tra xem ID có tồn tại hay không
         if (productId != null) {

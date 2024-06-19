@@ -22,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class PersonalActivity extends AppCompatActivity {
     Button dangnhap;
     Button dangxuat;
+
     Button donhang;
     Button trangquanly;
 
@@ -75,6 +76,14 @@ trangquanly.setVisibility(View.VISIBLE);
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DonHangActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        trangquanly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TrangQuanLy.class);
                 startActivity(intent);
 
             }

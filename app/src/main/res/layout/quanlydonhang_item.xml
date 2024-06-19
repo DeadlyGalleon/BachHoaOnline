@@ -13,6 +13,8 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+
+
         <TextView
             android:id="@+id/tv_order_id"
             android:layout_width="wrap_content"
@@ -20,6 +22,12 @@
             android:text="ID Đơn hàng: "
             android:textSize="18sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_order_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đặt bởi: "
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_order_date"
@@ -48,7 +56,12 @@
             android:layout_height="wrap_content"
             android:text="Tổng tiền: "
             android:textSize="16sp" />
-
+        <TextView
+            android:id="@+id/tv_order_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền: "
+            android:textSize="16sp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_product_list"
             android:layout_width="match_parent"

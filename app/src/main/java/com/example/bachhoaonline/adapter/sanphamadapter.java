@@ -105,6 +105,34 @@ public class sanphamadapter extends ArrayAdapter<sanpham> {
 
         return view;
     }
+    public void filter(String query,String loai, String loaicon) {
+        query = query.toLowerCase();
+        sanPhamList.clear();
+
+        if (query.isEmpty()) {
+            for (sanpham product : originalSanPhamList) {
+                if ( product.getLoai()==Integer.parseInt(loai) && product.getLoaicon()==Integer.parseInt(loaicon) && Integer.parseInt(loaicon)!=0  ) {
+                    sanPhamList.add(product);
+                }
+                else
+                if ( product.getLoai()==Integer.parseInt(loai)  ) {
+                    sanPhamList.add(product);
+                }
+            }
+        } else {
+            for (sanpham product : originalSanPhamList) {
+                if (product.getTensanpham().toLowerCase().contains(query) && product.getLoai()==Integer.parseInt(loai) && product.getLoaicon()==Integer.parseInt(loaicon) && Integer.parseInt(loaicon)!=0  ) {
+                    sanPhamList.add(product);
+                }
+                else
+                if (product.getTensanpham().toLowerCase().contains(query) && product.getLoai()==Integer.parseInt(loai)  ) {
+                    sanPhamList.add(product);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+    }
     public void filter(String query) {
         query = query.toLowerCase();
         sanPhamList.clear();

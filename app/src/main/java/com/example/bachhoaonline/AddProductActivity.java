@@ -288,7 +288,9 @@ public class AddProductActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                        // Handle success, perform any additional actions if needed
+                        Intent intent=new Intent(getApplicationContext(),QuanLySanPhamActivity.class);
+                        finish();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

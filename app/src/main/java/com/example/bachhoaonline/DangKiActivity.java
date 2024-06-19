@@ -128,13 +128,12 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
             return;
         }
 
-        // Lấy thông tin từ các trường nhập liệu
         String str_tentaikhoan = tentaikhoan.getText().toString().trim();
         String str_sodienthoai = sodienthoai.getText().toString().trim();
         String str_matkhau = matkhau.getText().toString().trim();
         String str_nhaplaimaukhau = matkhaunhaplai.getText().toString().trim();
 
-        // Kiểm tra xem có trường nào trống không
+
         if (TextUtils.isEmpty(str_tentaikhoan)) {
             Toast.makeText(this, "Bạn chưa nhập tên tài khoản", Toast.LENGTH_SHORT).show();
             return;
@@ -149,11 +148,29 @@ quayveloginbutton=findViewById(R.id.quayvelogin);
             return;
         }
 
-        // Kiểm tra xem mật khẩu và nhập lại mật khẩu có khớp nhau không
+
+        if (str_tentaikhoan.length() <= 8) {
+            Toast.makeText(this, "Tên tài khoản phải dài hơn 8 ký tự", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (str_matkhau.length() <= 8) {
+            Toast.makeText(this, "Mật khẩu phải dài hơn 8 ký tự", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String phonePattern = "^0[0-9]{9,10}$"; // Bắt đầu bằng 0 và theo sau là 9 hoặc 10 chữ số
+        if (!str_sodienthoai.matches(phonePattern)) {
+            Toast.makeText(this, "Số điện thoại không đúng định dạng", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!str_nhaplaimaukhau.equals(str_matkhau)) {
             Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
             return;
         }
+
+
+
         // Tham chiếu đến nút "taikhoan" trong Firebase Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("taikhoan");
         // Kiểm tra xem tên tài khoản đã tồn tại chưa

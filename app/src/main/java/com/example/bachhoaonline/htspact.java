@@ -42,7 +42,7 @@ public class htspact extends AppCompatActivity {
     private List<loaicon> loaiConSanPhamList = new ArrayList<>();
     private SearchView searchView;
 
-
+    sanphamadapter sanphamAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,43 @@ public class htspact extends AppCompatActivity {
     }
 
     private void Control() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (spinnerLoaiSanPham.getSelectedItemPosition() == 0) {
+                    // Nếu loại sản phẩm được chọn là "Tất cả", tìm kiếm tất cả
+                    sanphamAdapter.filter(newText);
+                }
+                else {
+                    Loai selectedLoai = (Loai) spinnerLoaiSanPham.getSelectedItem();
+                    if (selectedLoai != null) {
+                        Log.d("aaaaa", selectedLoai.getIdloai());
+                    }
+
+                    String idloaicon = "0";
+                    loaicon selectedLoaiCon = (loaicon) spinnerLoaiConSanPham.getSelectedItem();
+                    if (selectedLoaiCon != null && selectedLoaiCon.getIdloaicon() != null && !selectedLoaiCon.getIdloaicon().toString().isEmpty()) {
+                        idloaicon = selectedLoaiCon.getIdloaicon().toString();
+                        Log.d("aaaaa", selectedLoaiCon.getIdloaicon().toString());
+                    } else {
+                        Log.d("aaaaa", "selectedLoaiCon hoặc selectedLoaiCon.getIdloaicon() là null hoặc rỗng.");
+                    }
+
+
+                    sanphamAdapter.filter(newText,selectedLoai.getIdloai(), idloaicon);
+
+                }
+
+
+                return false;
+            }
+        });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbottomtrangchu);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -125,7 +162,12 @@ public class htspact extends AppCompatActivity {
             }
         });
 
+
+
+
     }
+
+
 
     private void AnhXa() {
         sanphamListView = findViewById(R.id.listViewSanPham);
@@ -180,11 +222,16 @@ public class htspact extends AppCompatActivity {
                         String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
                         Long giaBan = snapshot.child("giaban").getValue(Long.class);
                         String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
+                        Integer loai=snapshot.child("loai").getValue(Integer.class);
+                        Integer loaicon=snapshot.child("loaicon").getValue(Integer.class);
+
                         sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
+                        sanPham.setLoai(loai);
+                        sanPham.setLoaicon(loaicon);
                         sanPhamList.add(sanPham);
                     }
 
-                    sanphamadapter sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
+                     sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
                     sanphamAdapter.setOnItemClickListener(new sanphamadapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
@@ -221,12 +268,16 @@ public class htspact extends AppCompatActivity {
                     String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
                     Long giaBan = snapshot.child("giaban").getValue(Long.class);
                     String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
+                    Integer loai=snapshot.child("loai").getValue(Integer.class);
+                    Integer loaicon=snapshot.child("loaicon").getValue(Integer.class);
 
                     sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
+                    sanPham.setLoai(loai);
+                    sanPham.setLoaicon(loaicon);
                     sanPhamList.add(sanPham);
                 }
 
-                sanphamadapter sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
+                 sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
                 sanphamAdapter.setOnItemClickListener(new sanphamadapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
@@ -237,18 +288,7 @@ public class htspact extends AppCompatActivity {
                     }
                 });
                 sanphamListView.setAdapter(sanphamAdapter);
-                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
 
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        sanphamAdapter.filter(newText);
-                        return false;
-                    }
-                });
 
 
 
@@ -318,7 +358,8 @@ public class htspact extends AppCompatActivity {
         if (idLoaiCon.equals("0") || idLoaiCon.isEmpty()) {
             loadSanPhamTheoIdLoai(idloai);
             return;
-        } else {
+        }
+        else {
 
 
             DatabaseReference sanPhamRef = FirebaseDatabase.getInstance().getReference().child("sanpham");
@@ -332,14 +373,19 @@ public class htspact extends AppCompatActivity {
                         String tenSanPham = snapshot.child("tensanpham").getValue(String.class);
                         Long giaBan = snapshot.child("giaban").getValue(Long.class);
                         String hinhAnh = snapshot.child("hinhanh").getValue(String.class);
+                        Integer loai=snapshot.child("loai").getValue(Integer.class);
+                        Integer loaicon=snapshot.child("loaicon").getValue(Integer.class);
+
                         sanpham sanPham = new sanpham(idString, tenSanPham, giaBan, hinhAnh);
-                        int loaicon=snapshot.child("loaicon").getValue(Integer.class);
-                        if(loaicon==Integer.parseInt(idLoaiCon)) {
+                        sanPham.setLoai(loai);
+                        sanPham.setLoaicon(loaicon);
+                        int loaicon1=snapshot.child("loaicon").getValue(Integer.class);
+                        if(loaicon1==Integer.parseInt(idLoaiCon)) {
                             sanPhamList.add(sanPham);
                         }
                     }
 
-                    sanphamadapter sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
+                     sanphamAdapter = new sanphamadapter(htspact.this, sanPhamList);
                     sanphamAdapter.setOnItemClickListener(new sanphamadapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {

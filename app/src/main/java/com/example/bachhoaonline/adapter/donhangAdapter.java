@@ -47,7 +47,9 @@ public class donhangAdapter extends RecyclerView.Adapter<donhangAdapter.OrderVie
         stringBuilder.append("Ngày giao: ").append(order.getNgaygiao());
         holder.deliveryDate.setText(stringBuilder.toString());
         stringBuilder.setLength(0);
-
+        stringBuilder.append("Địa Chỉ: ").append(order.getDiaChi());
+        holder.orderAddress.setText(stringBuilder.toString());
+        stringBuilder.setLength(0);
 // Tình trạng
         stringBuilder.append("Tình trạng: ").append(order.getTrangThai());
         holder.orderStatus.setText(stringBuilder.toString());
@@ -69,7 +71,7 @@ public class donhangAdapter extends RecyclerView.Adapter<donhangAdapter.OrderVie
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView orderId, orderDate, deliveryDate, orderStatus, orderTotal;
+        TextView orderId, orderDate, deliveryDate, orderStatus, orderTotal,orderAddress;
         RecyclerView productList;
 
         public OrderViewHolder(@NonNull View itemView) {
@@ -79,6 +81,7 @@ public class donhangAdapter extends RecyclerView.Adapter<donhangAdapter.OrderVie
             deliveryDate = itemView.findViewById(R.id.tv_delivery_date);
             orderStatus = itemView.findViewById(R.id.tv_order_status);
             orderTotal = itemView.findViewById(R.id.tv_order_total);
+            orderAddress=itemView.findViewById(R.id.tv_order_address);
             productList = itemView.findViewById(R.id.rv_product_list);
         }
     }

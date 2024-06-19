@@ -7,6 +7,23 @@
     android:padding="16dp"
     tools:context=".DatHangActivity">
 
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/address_input">
+
+        <LinearLayout
+            android:id="@+id/product_list1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
     <EditText
         android:id="@+id/address_input"
         android:layout_width="0dp"
